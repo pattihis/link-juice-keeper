@@ -1,0 +1,78 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>	
+<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+<title>Link Juice Keeper 1.2.3 Readme</title>
+</head>
+<body>
+<h1>Link Juice Keeper 1.2.3 Readme</h1>
+<p>This plugin helps you to keep the link juice by redirecting all non-existing URLs which normally return a 404 error to the blog front page using 301 redirect.</p>
+<p><b>Plugin Homepage:</b> <a href="http://www.poradnik-webmastera.com/projekty/link_juice_keeper/">Link Juice Keeper</a></p>
+<p><b>Plugin Homepage on WordPress.org:</b> <a href="http://wordpress.org/extend/plugins/link-juice-keeper/">Link Juice Keeper</a></p>
+<p><b>Author Homepage:</b> <a href="http://www.poradnik-webmastera.com/">Poradnik Webmastera</a></p>
+<p><b>Author:</b> Daniel Frużyński</p>
+
+<h2>Description</h2>
+<p>As you probably know, incoming links play important role in ranking well in Google and other search engines. Therefore you should assure that every incoming link leads to one of pages on your blog. This may be a challenge, because World Wide Web is dynamic and changes every day:</p>
+<ul>
+<li>you can remove some posts or pages on your blog;</li>
+<li>you can change URL scheme on whole blog;</li>
+<li>incoming links may became broken (e.g. due to some automatic text formatting);</li>
+<li>someone may simply put wrong (broken) link somewhere.</li>
+</ul>
+<p>All of the above leads to link juice waste. You can avoid this by using this plugin. It redirects all non-existing URLs which normally return a 404 error to the blog front page using 301 (permanent) redirect. This way everyone who comes to your blog via broken link (both people and robots) will be redirected to the front page.</p>
+<p>The only one exception are files in root blog directory with names starting with `noexist_`. They are used by Google to verify page in Google Webmasters Tools, so Link Juice Keeper does not redirect them.</p>
+
+<h2>Installation</h2>
+<ol>
+<li>Upload <code>link-juice-keeper</code> directory to the <code>/wp-content/plugins/</code> directory</li>
+<li>Activate the plugin through the 'Plugins' menu in WordPress</li>
+<li>Configure and enjoy :)</li>
+</ol>
+
+<h2>Changelog</h2>
+<p>1.2.3</p>
+<ul>
+<li>Marked as compatible with WP 3.2.x</li>
+</ul>
+<p>1.2.2</p>
+<ul>
+<li>Marked as compatible with WP 2.9.x</li>
+</ul>
+<p>1.2.1</p>
+<ul>
+<li>Marked as compatible with WP 2.8.5</li>
+</ul>
+<p>1.2</p>
+<ul>
+<li>Fix: does not redirect Google Bot doing page verification for Google Webmasters Tools</li>
+</ul>
+<p>1.1.1</p>
+<ul>
+<li>Make plugin compatible with WordPress 2.8</li>
+</ul>
+<p>1.1</p>
+<ul>
+<li>Decreased filter priority, so now it will run after ones with default priority</li>
+</ul>
+<p>1.0</p>
+<ul>
+<li>Initial version</li>
+</ul>
+
+<h2>Licence</h2>
+<p>Copyright 2009  Daniel Frużyński  (email : daniel [A-T] poradnik-webmastera.com)</p>
+<p>This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 2 of the License, or
+(at your option) any later version.</p>
+<p>This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.</p>
+<p>You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA</p>
+
+</body>
+</html>
