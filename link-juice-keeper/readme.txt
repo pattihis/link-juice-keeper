@@ -1,7 +1,16 @@
-# Link Juice Keeper
-Wordpress plugin to handle 404 errors with custom redirections
+=== Plugin Name ===
+Contributors: pattihis, sirzooro
+Tags: google, link, links, redirect, seo
+Requires at least: 3.0.1
+Tested up to: 5.7
+Requires PHP: 5.6
+Stable tag: 2.0.0
+License: GPLv2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-## == Description ==
+Improve your SEO and keep your link juice by automatically redirecting all 404 errors to any page/post/url. User friendly options and log feature.
+
+== Description ==
 
 `Page not found` ( status 404 ) errors are very common and they are one of the main reasons a search engine, like Google, can give you a lower ranking. Taking steps to handle 404 errors can be complex for non-techy users. With this free plugin you can finally eliminate all 404 errors with just 1 click, once and for all!
 
@@ -28,10 +37,39 @@ Any of the above will lead to link juice waste and a 404 error. You can avoid th
 * Build according to best practices and WordPress coding standards
 * Never have a 404 error again!
 
-### == Installation ==
+[Changelog](http://wordpress.org/extend/plugins/link-juice-keeper/changelog/)
+
+== Installation ==
 
 1. In your WordPress admin panel, go to Plugins > New Plugin, search for "Link Juice Keeper" and click "Install now"
 2. Alternatively, download the plugin and upload the contents of link-juice-keeper.zip to your plugins directory, which usually is /wp-content/plugins/
 3. Activate the plugin
 4. Go to "link Juice Keeper" tab on your admin menus
 5. Configure the plugin options with available settings
+
+
+== Changelog ==
+
+= 2.0.0 =
+* Major update
+
+= 1.2.3 =
+* Marked as compatible with WP 3.2.x
+
+= 1.2.2 =
+* Marked as compatible with WP 2.9.x
+
+= 1.2.1 =
+* Marked as compatible with WP 2.8.5
+
+= 1.2 =
+* Fix: does not redirect Google Bot doing page verification for Google Webmasters Tools
+
+= 1.1.1 =
+* Make plugin compatible with WordPress 2.8
+
+= 1.1 =
+* Decreased filter priority, so now it will run after ones with default priority
+
+= 1.0 =
+* Initial version
