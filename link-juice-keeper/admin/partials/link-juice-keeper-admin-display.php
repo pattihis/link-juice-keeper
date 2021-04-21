@@ -13,7 +13,7 @@
  */
 
 $plugin_admin = new Link_Juice_Keeper_Admin('link-juice-keeper', LINK_JUICE_KEEPER_VERSION, );
-$statuses = $plugin_admin->ljk_statuses();
+$statuses = $plugin_admin->linkJuiceKeeper_statuses();
 
 $hide = ' style="display: none;"';
 ?>
@@ -79,13 +79,13 @@ $hide = ' style="display: none;"';
                     <tr>
                         <th><?php _e( 'Log 404 Errors', 'link-juice-keeper' ); ?></th>
                         <td>
-                            <label><input type="checkbox" name="ljk_main_settings[redirect_log]" value="1" <?php checked( $plugin_admin->ljk_get_option( 'redirect_log' ), 1 ); ?> /><?php _e( 'Keep track of 404 errors', 'link-juice-keeper' ); ?></label>
+                            <label><input type="checkbox" name="ljk_main_settings[redirect_log]" value="1" <?php checked( $plugin_admin->linkJuiceKeeper_get_option( 'redirect_log' ), 1 ); ?> /><?php _e( 'Keep track of 404 errors', 'link-juice-keeper' ); ?></label>
                         </td>
                     </tr>
                     <tr>
                         <th><?php _e( 'Enable notifications', 'link-juice-keeper' ); ?></th>
                         <td>
-                            <label><input type="checkbox" name="ljk_main_settings[email_notify]" value="1" <?php checked( $plugin_admin->ljk_get_option( 'email_notify' ), 1 ); ?> />
+                            <label><input type="checkbox" name="ljk_main_settings[email_notify]" value="1" <?php checked( $plugin_admin->linkJuiceKeeper_get_option( 'email_notify' ), 1 ); ?> />
                             <?php _e( 'Get notified by email on every 404 error', 'link-juice-keeper' ); ?></label>
                         </td>
                     </tr>

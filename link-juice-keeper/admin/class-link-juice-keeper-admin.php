@@ -81,20 +81,20 @@ class Link_Juice_Keeper_Admin {
 	 *
 	 * @since    2.0.0
 	 */
-	public function ljk_admin_menu() {
+	public function linkJuiceKeeper_admin_menu() {
 		
 		add_menu_page( 
 			__( 'Link Juice Keeper', 'link-juice-keeper' ),
 			__( 'Link Juice Keeper', 'link-juice-keeper' ),
 			'manage_options',
 			$this->plugin_name,
-			[$this,'ljk_admin_display'],
+			[$this,'linkJuiceKeeper_admin_display'],
 			'dashicons-editor-unlink',
 			25
 		);
 
-		add_submenu_page( $this->plugin_name, __( 'Link Juice Keeper Settings', 'link-juice-keeper' ), __( 'Settings', 'link-juice-keeper' ), 'manage_options', $this->plugin_name, [$this,'ljk_admin_display'], 0);
-		add_submenu_page( $this->plugin_name, __( '404 Logs', 'link-juice-keeper' ), __( '404 Logs', 'link-juice-keeper' ), 'manage_options', $this->plugin_name.'-404-logs', [$this,'ljk_admin_display_logs'], 1);
+		add_submenu_page( $this->plugin_name, __( 'Link Juice Keeper Settings', 'link-juice-keeper' ), __( 'Settings', 'link-juice-keeper' ), 'manage_options', $this->plugin_name, [$this,'linkJuiceKeeper_admin_display'], 0);
+		add_submenu_page( $this->plugin_name, __( '404 Logs', 'link-juice-keeper' ), __( '404 Logs', 'link-juice-keeper' ), 'manage_options', $this->plugin_name.'-404-logs', [$this,'linkJuiceKeeper_admin_display_logs'], 1);
 
 	}
 
@@ -103,7 +103,7 @@ class Link_Juice_Keeper_Admin {
 	 *
 	 * @since  2.0.0
 	 */
-	public function ljk_admin_display() {
+	public function linkJuiceKeeper_admin_display() {
 		include_once 'partials/link-juice-keeper-admin-display.php';
     }
 
@@ -112,7 +112,7 @@ class Link_Juice_Keeper_Admin {
 	 *
 	 * @since  2.0.0
 	 */
-	public function ljk_admin_display_logs() {
+	public function linkJuiceKeeper_admin_display_logs() {
 		include_once 'partials/link-juice-keeper-admin-display-logs.php';
     }
 
@@ -122,7 +122,7 @@ class Link_Juice_Keeper_Admin {
 	 * @since  2.0.0
 	 * @return array Allowed HTTP status codes
 	 */
-	public function ljk_statuses() {
+	public function linkJuiceKeeper_statuses() {
 
 		$statuses = array(
 			301 => __( '301 Redirect (Permanent)', 'link-juice-keeper' ),
@@ -145,7 +145,7 @@ class Link_Juice_Keeper_Admin {
 	 *
 	 * @return string|array
 	 */
-	function ljk_get_option( $option = false, $default = false ) {
+	function linkJuiceKeeper_get_option( $option = false, $default = false ) {
 
 		if ( ! $option ) {
 			return $default;

@@ -1,5 +1,5 @@
 === Plugin Name ===
-Contributors: pattihis, sirzooro
+Contributors: sirzooro, pattihis
 Tags: google, link, links, redirect, seo
 Requires at least: 3.0.1
 Tested up to: 5.7
@@ -37,6 +37,8 @@ Any of the above will lead to link juice waste and a 404 error. You can avoid th
 * Build according to best practices and WordPress coding standards
 * Never have a 404 error again!
 
+*Link Juice Keeper* was originally developed by [Daniel Frużyński](https://profiles.wordpress.org/sirzooro/). The plugin has been adopted by [George Pattihis](https://profiles.wordpress.org/pattihis/) to assist in maintenance and continue development.
+
 [Changelog](http://wordpress.org/extend/plugins/link-juice-keeper/changelog/)
 
 == Installation ==
@@ -47,11 +49,14 @@ Any of the above will lead to link juice waste and a 404 error. You can avoid th
 4. Go to "link Juice Keeper" tab on your admin menus
 5. Configure the plugin options with available settings
 
-
 == Changelog ==
 
 = 2.0.0 =
-* Major update
+* Major update - compatible with WP 5.7.x
+* Feature: Select Redirect Type (301, 302, 307)
+* Feature: Select Redirect Target (Home, Page, Post, URL)
+* Feature: Monitor/Log 404 errors
+* Feature: Send Email Alerts about 404
 
 = 1.2.3 =
 * Marked as compatible with WP 3.2.x

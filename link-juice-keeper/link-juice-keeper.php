@@ -11,13 +11,45 @@
  * Plugin URI:        https://wordpress.org/plugins/link-juice-keeper/
  * Description:       Improve your SEO and keep your link juice by automatically redirecting all 404 errors to any page/post/url. User friendly options and log feature.
  * Version:           2.0.0
- * Author:            George Pattihis
- * Author URI:        https://profiles.wordpress.org/pattihis/
+ * Author:            Daniel Frużyński, George Pattihis
+ * Author URI:        https://profiles.wordpress.org/sirzooro/
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
  * Text Domain:       link-juice-keeper
  * Domain Path:       /languages
  */
+
+ /* Copyright 2009,2011  Daniel Frużyński (daniel@poradnik-webmastera.com)
+
+	This program is free software; you can redistribute it and/or modify
+	it under the terms of the GNU General Public License, version 2, as 
+	published by the Free Software Foundation.
+
+	This program is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	GNU General Public License for more details.
+
+	You should have received a copy of the GNU General Public License
+	along with this program; if not, write to the Free Software
+	Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+*/
+
+/*  Copyright 2021  George Pattihis (gpattihis@gmail.com)
+
+	"Link Juice Keeper" is free software: you can redistribute it and/or modify
+	it under the terms of the GNU General Public License as published by
+	the Free Software Foundation, either version 2 of the License, or
+	any later version.
+	
+	"Link Juice Keeper" is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+	GNU General Public License for more details.
+	
+	You should have received a copy of the GNU General Public License
+	"along with Link Juice Keeper". If not, see http://www.gnu.org/licenses/gpl-2.0.txt.
+*/
 
 // If this file is called directly, abort.
 if ( ! defined( 'WPINC' ) ) {

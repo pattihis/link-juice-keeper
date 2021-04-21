@@ -171,7 +171,7 @@ class Link_Juice_Keeper_Logs extends WP_List_Table {
 		 *
 		 * @since 2.0.0
 		 */
-		$orderby = apply_filters( 'ljk_log_list_orderby', $this->ljk_from_request( 'orderby', 'date' ) );
+		$orderby = apply_filters( 'ljk_log_list_orderby', $this->linkJuiceKeeper_from_request( 'orderby', 'date' ) );
 
 		/**
 		 * Filter to alter the allowed order by values.
@@ -183,7 +183,7 @@ class Link_Juice_Keeper_Logs extends WP_List_Table {
 		$allowed_columns = apply_filters( 'ljk_log_list_orderby_allowed', array( 'date', 'url', 'ref', 'ip' ) );
 
 		// Make sure only valid columns are considered.
-		$allowed_columns = array_intersect( $allowed_columns, array_keys( $this->ljk_log_columns() ) );
+		$allowed_columns = array_intersect( $allowed_columns, array_keys( $this->linkJuiceKeeper_log_columns() ) );
 
 		// Check if given column is allowed.
 		if ( in_array( $orderby, $allowed_columns ) ) {
@@ -209,7 +209,7 @@ class Link_Juice_Keeper_Logs extends WP_List_Table {
 	private function get_order() {
 
 		// Get order column name from request.
-		$order = $this->ljk_from_request( 'order', 'DESC' ) == 'asc' ? 'ASC' : 'DESC';
+		$order = $this->linkJuiceKeeper_from_request( 'order', 'DESC' ) == 'asc' ? 'ASC' : 'DESC';
 
 		/**
 		 * Filter to alter the log listing order param.
@@ -248,10 +248,10 @@ class Link_Juice_Keeper_Logs extends WP_List_Table {
 		$allowed_values = apply_filters( 'ljk_log_list_groupby_allowed', array( 'url', 'ref', 'ip', 'ua' ) );
 
 		// Make sure only valid columns are considered.
-		$allowed_values = array_intersect( $allowed_values, array_keys( $this->ljk_log_columns() ) );
+		$allowed_values = array_intersect( $allowed_values, array_keys( $this->linkJuiceKeeper_log_columns() ) );
 
 		// Get group by value from request.
-		$group_by = $this->ljk_from_request( 'group_by_top', '' );
+		$group_by = $this->linkJuiceKeeper_from_request( 'group_by_top', '' );
 
 		// Verify if the group by value is allowed.
 		if ( ! in_array( $group_by, $allowed_values ) ) {
@@ -403,7 +403,7 @@ class Link_Juice_Keeper_Logs extends WP_List_Table {
 	 */
 	protected function column_default( $item, $column_name ) {
 
-		$columns = array_keys( $this->ljk_log_columns() );
+		$columns = array_keys( $this->linkJuiceKeeper_log_columns() );
 
 		/**
 		 * Filter hook to change column names.
@@ -685,7 +685,7 @@ class Link_Juice_Keeper_Logs extends WP_List_Table {
 			// This filter is already documented above.
 			$allowed_values = apply_filters( 'ljk_log_list_groupby_allowed', array( 'url', 'ref', 'ip', 'ua' ) );
 			// Allowed/available columns.
-			$available_columns = $this->ljk_log_columns();
+			$available_columns = $this->linkJuiceKeeper_log_columns();
 			// Consider only available columns.
 			$column_names = array_intersect( $allowed_values, array_keys( $available_columns ) );
 			// Add dropdown.
@@ -735,7 +735,7 @@ class Link_Juice_Keeper_Logs extends WP_List_Table {
 		}
 
 		// IDs of log entires to process.
-		$ids = $this->ljk_from_request( 'bulk-delete', true );
+		$ids = $this->linkJuiceKeeper_from_request( 'bulk-delete', true );
 
 		// Run custom bulk actions.
 		// Add other custom actions in switch..
@@ -831,7 +831,7 @@ class Link_Juice_Keeper_Logs extends WP_List_Table {
      *
      * @return array Allowed HTTP status codes.
      */
-    public function ljk_log_columns() {
+    public function linkJuiceKeeper_log_columns() {
 
         $columns = array(
 			'date' => __( 'Date', 'link-juice-keeper' ),
@@ -853,8 +853,7 @@ class Link_Juice_Keeper_Logs extends WP_List_Table {
     }
 
     /**
-     * Retreive data from $_REQUEST
-     * Output will be trimmed.
+     * Retreive data from $_REQUEST and sanitize
      *
      * @param string $key Key to get from request.
      * @param mixed $default Default value.
@@ -864,7 +863,7 @@ class Link_Juice_Keeper_Logs extends WP_List_Table {
      *
      * @return array|string
      */
-    public function ljk_from_request( $key = '', $default = '' ) {
+    public function linkJuiceKeeper_from_request( $key = '', $default = '' ) {
 
         // Return default value if key is not given.
         if ( empty( $key ) || ! is_string( $key ) ) {
@@ -878,9 +877,9 @@ class Link_Juice_Keeper_Logs extends WP_List_Table {
 
         // Trim output.
         if ( is_string( $_REQUEST[ $key ] ) ) {
-            return trim( $_REQUEST[ $key ] );
+            return sanitize_text_field( $_REQUEST[ $key ] );
         } elseif ( is_array( $_REQUEST[ $key ] ) ) {
-            return array_map( 'trim', $_REQUEST[ $key ] );
+			return array_map( 'sanitize_text_field', $_REQUEST[ $key ] );
         }
 
         return $default;
@@ -901,13 +900,13 @@ class Link_Juice_Keeper_Logs extends WP_List_Table {
         // If orderby is set, use this as the sort column
         if(!empty($_GET['orderby']))
         {
-            $orderby = $_GET['orderby'];
+            $orderby = sanitize_title($_GET['orderby']);
         }
 
         // If order is set use this as the order
         if(!empty($_GET['order']))
         {
-            $order = $_GET['order'];
+            $order = sanitize_title($_GET['order']);
         }
 
 

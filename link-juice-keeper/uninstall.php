@@ -20,15 +20,15 @@ if ( is_multisite() ) {
 
 	foreach (get_sites(['fields'=>'ids']) as $blog_id) {
 		switch_to_blog($blog_id);
-		cleanup();
+		linkJuiceKeeper_cleanup();
 		restore_current_blog();
 	} 
 
 } else {
-	cleanup();
+	linkJuiceKeeper_cleanup();
 }
 
-function cleanup(){
+function linkJuiceKeeper_cleanup(){
 
 	// Plugin options.
 	$options = array(

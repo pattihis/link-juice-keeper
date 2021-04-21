@@ -16,11 +16,6 @@ global $wpdb;
 
 $table = new Link_Juice_Keeper_Logs();
 
-$message = '';
-if ('delete' === $table->current_action()) {
-    $message = '<div class="updated below-h2" id="message"><p>' . sprintf(__('Entries deleted: %d', 'cltd_example'), count($_REQUEST['id'])) . '</p></div>';
-}
-
 ?>
 
 <h1>404 Logs</h1>

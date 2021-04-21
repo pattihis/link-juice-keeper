@@ -96,15 +96,15 @@ class Link_Juice_Keeper_Public {
 		$plugin_admin = new Link_Juice_Keeper_Admin('link-juice-keeper', LINK_JUICE_KEEPER_VERSION, );
 
 		// Get redirect target
-		$to = $plugin_admin->ljk_get_option( 'redirect_to' );
+		$to = $plugin_admin->linkJuiceKeeper_get_option( 'redirect_to' );
 		if ( 'home' === $to ) {
 			$target = get_home_url();
 		} elseif ( 'page' === $to ) {
-			$target = get_permalink( $plugin_admin->ljk_get_option( 'redirect_page' ) );
+			$target = get_permalink( $plugin_admin->linkJuiceKeeper_get_option( 'redirect_page' ) );
 		} elseif ( 'post' === $to ) {
-			$target = get_permalink( $plugin_admin->ljk_get_option( 'redirect_post' ) );
+			$target = get_permalink( $plugin_admin->linkJuiceKeeper_get_option( 'redirect_post' ) );
 		} elseif ( 'link' === $to ) {
-			$target = $plugin_admin->ljk_get_option( 'redirect_link' );
+			$target = $plugin_admin->linkJuiceKeeper_get_option( 'redirect_link' );
 		}
 		
 		if ( '0' == $to ) {
@@ -146,13 +146,13 @@ class Link_Juice_Keeper_Public {
 		$ips = array( 'HTTP_CLIENT_IP', 'HTTP_X_FORWARDED_FOR', 'REMOTE_ADDR' );
 		foreach ( $ips as $ip ) {
 			if ( isset( $_SERVER[ $ip ] ) ) {
-				$ip = $_SERVER[ $ip ];
+				$ip = esc_attr( $_SERVER[ $ip ] );
 			}
 		}
 
 		// Set visitor's user agent/browser.
 		if ( isset( $_SERVER['HTTP_USER_AGENT'] ) ) {
-			$ua = $_SERVER['HTTP_USER_AGENT'];
+			$ua = esc_attr( $_SERVER['HTTP_USER_AGENT'] );
 		}
 
 		// Set visitor's referring link.
@@ -194,10 +194,15 @@ class Link_Juice_Keeper_Public {
 
 		global $wpdb;
 		global $ljk_track_data;
+		$save_data = [];
 		$table = $wpdb->prefix . 'link_juice_keeper';
 
-		// Insert data to database
-		$wpdb->insert( $table, $ljk_track_data );
+		if ( is_array( $ljk_track_data ) ) {
+			$save_data =  array_map( 'sanitize_text_field', $ljk_track_data );
+			
+			// Insert data to database
+			$wpdb->insert( $table, $save_data );
+        }
 
 	}
 
