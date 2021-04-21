@@ -28,6 +28,8 @@ Any of the above will lead to link juice waste and a 404 error. You can avoid th
 * Build according to best practices and WordPress coding standards
 * Never have a 404 error again!
 
+*Link Juice Keeper* was originally developed by [Daniel Frużyński](https://profiles.wordpress.org/sirzooro/). The plugin has been adopted by [George Pattihis](https://profiles.wordpress.org/pattihis/) to assist in maintenance and continue development.
+
 ### == Installation ==
 
 1. In your WordPress admin panel, go to Plugins > New Plugin, search for "Link Juice Keeper" and click "Install now"
