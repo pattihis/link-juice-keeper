@@ -70,7 +70,7 @@ class Link_Juice_Keeper {
 		if ( defined( 'LINK_JUICE_KEEPER_VERSION' ) ) {
 			$this->version = LINK_JUICE_KEEPER_VERSION;
 		} else {
-			$this->version = '2.0.0';
+			$this->version = '2.0.1';
 		}
 		$this->plugin_name = 'link-juice-keeper';
 
@@ -115,7 +115,7 @@ class Link_Juice_Keeper {
 		 * The class responsible for defining all actions that occur in the admin area.
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-link-juice-keeper-admin.php';
-		
+
 		/**
 		 * The class responsible for displaying logs in a WP_List_Table format
 		 */
@@ -166,7 +166,7 @@ class Link_Juice_Keeper {
 		$this->loader->add_filter( 'admin_init', $plugin_admin, 'add_buffer' );
 		$this->loader->add_action( 'admin_init', $plugin_admin, 'register_settings' );
 		$this->loader->add_action( 'admin_menu', $plugin_admin, 'linkJuiceKeeper_admin_menu' );
-		
+
 
 	}
 

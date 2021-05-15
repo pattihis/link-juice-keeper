@@ -12,7 +12,7 @@
  * @subpackage Link_Juice_Keeper/admin/partials
  */
 
-$plugin_admin = new Link_Juice_Keeper_Admin('link-juice-keeper', LINK_JUICE_KEEPER_VERSION, );
+$plugin_admin = new Link_Juice_Keeper_Admin('link-juice-keeper', LINK_JUICE_KEEPER_VERSION );
 $statuses = $plugin_admin->linkJuiceKeeper_statuses();
 
 $hide = ' style="display: none;"';
@@ -21,7 +21,7 @@ $hide = ' style="display: none;"';
 <!-- This file should primarily consist of HTML with a little bit of PHP. -->
 
 <h1><?php _e( 'Link Juice Keeper', 'link-juice-keeper' ); ?></h1>
-<h3><?php _e( 'No more 404 errors', 'link-juice-keeper' ); ?></h3>
+<h4><?php _e( 'Resolve 404 errors with automatic redirect', 'link-juice-keeper' ); ?></h4>
 <div class="ljk_main_wrap">
     <div class="ljk_main_left">
         <form method="post" action="options.php">
@@ -57,7 +57,7 @@ $hide = ' style="display: none;"';
                         <th><?php _e( 'Select a Page', 'link-juice-keeper' ); ?></th>
                         <td>
                             <?php wp_dropdown_pages( array( 'name' => 'ljk_main_settings[redirect_page]', 'selected' => $options['redirect_page'] ) ); ?>
-                            <p><?php _e( 'Select a <b>Page</b> form this list to redirect all 404 errors to.', 'link-juice-keeper' ); ?></p>
+                            <p><?php _e( 'Select a <b>Page</b> from this list to redirect all 404 errors to', 'link-juice-keeper' ); ?></p>
 
                         </td>
                     </tr>
@@ -65,7 +65,7 @@ $hide = ' style="display: none;"';
                         <th><?php _e( 'Select a Post', 'link-juice-keeper' ); ?></th>
                         <td>
                             <?php $plugin_admin->wp_dropdown_posts( array( 'selected' => $options['redirect_post'], 'select_name' => 'ljk_main_settings[redirect_post]' ) ); ?>
-                            <p><?php _e( 'Select a <b>Post</b> form this list to redirect all 404 errors to.', 'link-juice-keeper' ); ?></p>
+                            <p><?php _e( 'Select a <b>Post</b> from this list to redirect all 404 errors to', 'link-juice-keeper' ); ?></p>
 
                         </td>
                     </tr>
@@ -73,7 +73,7 @@ $hide = ' style="display: none;"';
                         <th><?php _e( 'Custom URL', 'link-juice-keeper' ); ?></th>
                         <td>
                             <input type="url" placeholder="<?php echo home_url(); ?>" name="ljk_main_settings[redirect_link]" value="<?php echo $options['redirect_link']; ?>">
-                            <p><?php _e( 'Enter any <b>custom link</b> to redirect all 404 errors to.', 'link-juice-keeper' ); ?></p>
+                            <p><?php _e( 'Enter any <b>custom link</b> to redirect all 404 errors to', 'link-juice-keeper' ); ?></p>
                         </td>
                     </tr>
                     <tr>
@@ -99,7 +99,7 @@ $hide = ' style="display: none;"';
                     </tr>
                 </tbody>
             </table>
-            <?php submit_button( __( 'Save settings', 'link-juice-keeper' ) ); ?>
+            <?php submit_button( __( 'Save options', 'link-juice-keeper' ) ); ?>
         </form><!-- /.form -->
     </div>
     <div class="ljk_main_right">
@@ -120,5 +120,5 @@ $hide = ' style="display: none;"';
     </div>
 </div>
 <p>
-    <?php _e( 'This is a free plugin so if you find it useful then please', 'link-juice-keeper' ); ?> <a target="_blank" href="https://wordpress.org/support/plugin/link-juice-keeper/reviews/#new-post" title="Rate the plugin"><?php _e( 'rate the plugin', 'link-juice-keeper' ); ?> ★★★★★</a> <?php _e( 'to support us. Thank you!', 'link-juice-keeper' ); ?>
+    <?php _e( 'This is a free plugin so if you find it useful then please', 'link-juice-keeper' ); ?> <a target="_blank" href="https://wordpress.org/support/plugin/link-juice-keeper/reviews/?rate=5#new-post" title="Rate the plugin"><?php _e( 'rate the plugin', 'link-juice-keeper' ); ?> ★★★★★</a> <?php _e( 'to support us. Thank you!', 'link-juice-keeper' ); ?>
 </p>

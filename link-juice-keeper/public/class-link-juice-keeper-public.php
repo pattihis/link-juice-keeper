@@ -93,7 +93,7 @@ class Link_Juice_Keeper_Public {
 			return;
 		}
 
-		$plugin_admin = new Link_Juice_Keeper_Admin('link-juice-keeper', LINK_JUICE_KEEPER_VERSION, );
+		$plugin_admin = new Link_Juice_Keeper_Admin('link-juice-keeper', LINK_JUICE_KEEPER_VERSION );
 
 		// Get redirect target
 		$to = $plugin_admin->linkJuiceKeeper_get_option( 'redirect_to' );
@@ -106,7 +106,7 @@ class Link_Juice_Keeper_Public {
 		} elseif ( 'link' === $to ) {
 			$target = $plugin_admin->linkJuiceKeeper_get_option( 'redirect_link' );
 		}
-		
+
 		if ( '0' == $to ) {
 			return;
 		} else {
@@ -199,7 +199,7 @@ class Link_Juice_Keeper_Public {
 
 		if ( is_array( $ljk_track_data ) ) {
 			$save_data =  array_map( 'sanitize_text_field', $ljk_track_data );
-			
+
 			// Insert data to database
 			$wpdb->insert( $table, $save_data );
         }
@@ -250,7 +250,7 @@ class Link_Juice_Keeper_Public {
 	 * @since  2.0.0
 	 * @return void
 	 */
-	public function redirect( $type, $target) {		
+	public function redirect( $type, $target) {
 
 		if ( empty( $target ) ) {
 			return;

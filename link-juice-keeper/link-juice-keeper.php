@@ -1,18 +1,23 @@
 <?php
-
 /**
+ * Link Juice Keeper
  *
+ * @package           Link_Juice_Keeper
+ * @author            George Pattihis
+ * @copyright         2021 George Pattihis
+ * @license           GPL-2.0-or-later
  * @link              https://profiles.wordpress.org/pattihis/
  * @since             2.0.0
- * @package           Link_Juice_Keeper
  *
  * @wordpress-plugin
  * Plugin Name:       Link Juice Keeper
  * Plugin URI:        https://wordpress.org/plugins/link-juice-keeper/
  * Description:       Improve your SEO and keep your link juice by automatically redirecting all 404 errors to any page/post/url. User friendly options and log feature.
- * Version:           2.0.0
- * Author:            Daniel Frużyński, George Pattihis
- * Author URI:        https://profiles.wordpress.org/sirzooro/
+ * Version:           2.0.1
+ * Requires at least: 5.2
+ * Requires PHP:      7.2
+ * Author:            George Pattihis
+ * Author URI:        https://profiles.wordpress.org/pattihis/
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
  * Text Domain:       link-juice-keeper
@@ -22,7 +27,7 @@
  /* Copyright 2009,2011  Daniel Frużyński (daniel@poradnik-webmastera.com)
 
 	This program is free software; you can redistribute it and/or modify
-	it under the terms of the GNU General Public License, version 2, as 
+	it under the terms of the GNU General Public License, version 2, as
 	published by the Free Software Foundation.
 
 	This program is distributed in the hope that it will be useful,
@@ -41,12 +46,12 @@
 	it under the terms of the GNU General Public License as published by
 	the Free Software Foundation, either version 2 of the License, or
 	any later version.
-	
+
 	"Link Juice Keeper" is distributed in the hope that it will be useful,
 	but WITHOUT ANY WARRANTY; without even the implied warranty of
 	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 	GNU General Public License for more details.
-	
+
 	You should have received a copy of the GNU General Public License
 	"along with Link Juice Keeper". If not, see http://www.gnu.org/licenses/gpl-2.0.txt.
 */
@@ -59,7 +64,7 @@ if ( ! defined( 'WPINC' ) ) {
 /**
  * Current plugin version.
  */
-define( 'LINK_JUICE_KEEPER_VERSION', '2.0.0' );
+define( 'LINK_JUICE_KEEPER_VERSION', '2.0.1' );
 
 /**
  * The code that runs during plugin activation.
@@ -67,17 +72,17 @@ define( 'LINK_JUICE_KEEPER_VERSION', '2.0.0' );
  */
 function activate_link_juice_keeper($network_wide) {
 	require_once plugin_dir_path( __FILE__ ) . 'includes/class-link-juice-keeper-activator.php';
-	
-	if ( is_multisite() && $network_wide ) { 
+
+	if ( is_multisite() && $network_wide ) {
 		foreach (get_sites(['fields'=>'ids']) as $blog_id) {
 			switch_to_blog($blog_id);
 			Link_Juice_Keeper_Activator::activate();
 			restore_current_blog();
-		} 
+		}
 	} else {
 		Link_Juice_Keeper_Activator::activate();
 	}
-	
+
 }
 
 /**

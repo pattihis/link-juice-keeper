@@ -20,7 +20,7 @@ $table = new Link_Juice_Keeper_Logs();
 
 <h1>404 Logs</h1>
     <div class="wrap">
-        <h4><?php _e( 'All Page Not Found (404) errors recorded in our database', 'link-juice-keeper' ); ?></h4>
+        <h4><?php _e( 'All 404 errors recorded in the database', 'link-juice-keeper' ); ?></h4>
         <div id="poststuff">
             <div id="post-body" class="metabox-holder">
                 <div id="post-body-content">

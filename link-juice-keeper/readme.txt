@@ -1,10 +1,11 @@
-=== Plugin Name ===
+=== Link Juice Keeper ===
 Contributors: sirzooro, pattihis
-Tags: google, link, links, redirect, seo
+Tags: 404, not found, link, links, error, redirect, seo
+Donate link: https://profiles.wordpress.org/pattihis/
 Requires at least: 3.0.1
 Tested up to: 5.7
 Requires PHP: 5.6
-Stable tag: 2.0.0
+Stable tag: 2.0.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -12,11 +13,11 @@ Improve your SEO and keep your link juice by automatically redirecting all 404 e
 
 == Description ==
 
-`Page not found` ( status 404 ) errors are very common and they are one of the main reasons a search engine, like Google, can give you a lower ranking. Taking steps to handle 404 errors can be complex for non-techy users. With this free plugin you can finally eliminate all 404 errors with just 1 click, once and for all!
+**Error 404** ( `Page not Found` ) is very common and one of the main reasons a search engine, like Google, can give you a lower ranking. Taking steps to handle 404 errors can be complex for non-techy users. With this free plugin you can finally eliminate all 404 errors with just 1 click, once and for all!
 
-### What are 404s?
+### What are 404 errors?
 
-As you probably know, incoming links play important role in ranking well in Google and other search engines. Therefore you should assure that every incoming link leads to one of your valid pages on your blog. This may be a challenge because your website is dynamic, it changes every day:
+As you probably know, incoming links play important role in ranking well in Google and other search engines. Therefore you should assure that every incoming link leads to one of your valid pages on your blog. This may be a challenge because your website is dynamic and it changes every day:
 
 * you might remove or unpublish posts or pages;
 * you might change your URL structure on your blog;
@@ -24,7 +25,9 @@ As you probably know, incoming links play important role in ranking well in Goog
 * a webmaster might add your link in their posts with a typo;
 * a visitor may simply mis-type your post's URL
 
-Any of the above will lead to link juice waste and a 404 error. You can avoid this simply by installing this plugin. It redirects all non-existing URLs, which normally return a 404 error, to the page/post of your choice. This way everyone who comes to your blog via a broken link (both people and robots) will be redirected to a valid page.
+Any of the above will lead to link juice waste and a 404 error. You can avoid this simply by installing this plugin.
+
+**Link Juice Keeper** redirects all non-existing URLs, that normally return a 404 error, to the page/post of your choice. This way everyone who comes to your blog via a broken link (both people and robots) will be redirected to a valid page.
 
 ### Features
 
@@ -37,7 +40,7 @@ Any of the above will lead to link juice waste and a 404 error. You can avoid th
 * Build according to best practices and WordPress coding standards
 * Never have a 404 error again!
 
-*Link Juice Keeper* was originally developed by [Daniel Frużyński](https://profiles.wordpress.org/sirzooro/). The plugin has been adopted by [George Pattihis](https://profiles.wordpress.org/pattihis/) to assist in maintenance and continue development.
+*Link Juice Keeper* was originally developed by [Daniel Frużyński](https://profiles.wordpress.org/sirzooro/). The plugin has been adopted and updated by [George Pattihis](https://profiles.wordpress.org/pattihis/) who will continue development.
 
 [Changelog](http://wordpress.org/extend/plugins/link-juice-keeper/changelog/)
 
@@ -49,7 +52,29 @@ Any of the above will lead to link juice waste and a 404 error. You can avoid th
 4. Go to "link Juice Keeper" tab on your admin menus
 5. Configure the plugin options with available settings
 
+== Frequently Asked Questions ==
+
+= When is "Link Juice Keeper" needed?  =
+
+If you want to automatically handle all 'Page Not Found' errors on your WordpRess website then this plugin is all you need. Install it, enable it and your visitors will never get another 404 error. This way you get to keep all your link juice!
+
+= Does it require manual coding or file editing? =
+
+Absolutely not. No technical knowledge is needed and with a few clicks you have handled 404 errors once and for all! Check out the screenshots above.
+
+= Is "Link Juice Keeper" compatible with my theme/plugins? =
+
+Of course! "Link Juice Keeper" is compatible with any theme and plugin that follows WordPress coding standards.
+
+== Screenshots ==
+
+1. Plugin settings page
+2. Log table to monitor 404 errors
+
 == Changelog ==
+
+= 2.0.1 =
+* Bug: Syntax error
 
 = 2.0.0 =
 * Major update - compatible with WP 5.7.x
