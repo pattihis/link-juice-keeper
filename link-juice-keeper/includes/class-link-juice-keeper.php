@@ -70,7 +70,7 @@ class Link_Juice_Keeper {
 		if ( defined( 'LINK_JUICE_KEEPER_VERSION' ) ) {
 			$this->version = LINK_JUICE_KEEPER_VERSION;
 		} else {
-			$this->version = '2.0.1';
+			$this->version = '2.0.2';
 		}
 		$this->plugin_name = 'link-juice-keeper';
 

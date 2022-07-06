@@ -1,11 +1,11 @@
 === Link Juice Keeper ===
-Contributors: sirzooro, pattihis
+Contributors: pattihis
 Tags: 404, not found, link, links, error, redirect, seo
 Donate link: https://profiles.wordpress.org/pattihis/
-Requires at least: 3.0.1
-Tested up to: 5.7
-Requires PHP: 5.6
-Stable tag: 2.0.1
+Requires at least: 5.2
+Tested up to: 6.0
+Requires PHP: 7.2
+Stable tag: 2.0.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -40,7 +40,7 @@ Any of the above will lead to link juice waste and a 404 error. You can avoid th
 * Build according to best practices and WordPress coding standards
 * Never have a 404 error again!
 
-*Link Juice Keeper* was originally developed by [Daniel Frużyński](https://profiles.wordpress.org/sirzooro/). The plugin has been adopted and updated by [George Pattihis](https://profiles.wordpress.org/pattihis/) who will continue development.
+*Link Juice Keeper* was originally developed by [Daniel Frużyński](https://profiles.wordpress.org/sirzooro/). The plugin has been adopted and refactored by [George Pattihis](https://profiles.wordpress.org/pattihis/) who will continue development and maintenance.
 
 [Changelog](http://wordpress.org/extend/plugins/link-juice-keeper/changelog/)
 
@@ -72,6 +72,10 @@ Of course! "Link Juice Keeper" is compatible with any theme and plugin that foll
 2. Log table to monitor 404 errors
 
 == Changelog ==
+
+= 2.0.2 =
+* Compatibility with WordPress 6.0
+* Resolve PHP Warnings
 
 = 2.0.1 =
 * Bug: Syntax error

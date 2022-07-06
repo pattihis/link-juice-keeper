@@ -122,7 +122,9 @@ class Link_Juice_Keeper_Public {
 			$this->log_error( (bool)$options['redirect_log'] );
 
 			// Send email notification
-			$this->email_alert( (bool)$options['email_notify'] );
+			if (isset($options['email_notify'])) {
+				$this->email_alert( (bool)$options['email_notify'] );
+			}
 
 			// Redirect the user.
 			$this->redirect( $type, $target );
@@ -151,19 +153,13 @@ class Link_Juice_Keeper_Public {
 		}
 
 		// Set visitor's user agent/browser.
-		if ( isset( $_SERVER['HTTP_USER_AGENT'] ) ) {
-			$ua = esc_attr( $_SERVER['HTTP_USER_AGENT'] );
-		}
+		$ua = isset( $_SERVER['HTTP_USER_AGENT'] ) ? esc_attr( $_SERVER['HTTP_USER_AGENT'] ) : '';
 
 		// Set visitor's referring link.
-		if ( isset( $_SERVER['HTTP_REFERER'] ) ) {
-			$ref = esc_url( $_SERVER['HTTP_REFERER'] );
-		}
+		$ref = isset( $_SERVER['HTTP_REFERER'] ) ? esc_url( $_SERVER['HTTP_REFERER'] ) : '';
 
 		// Set visitor's referring link
-		if ( isset( $_SERVER['REQUEST_URI'] ) ) {
-			$url = untrailingslashit( esc_url( $_SERVER['REQUEST_URI'] ) );
-		}
+		$url = isset( $_SERVER['REQUEST_URI'] ) ? untrailingslashit( esc_url( $_SERVER['REQUEST_URI'] ) ) : '';
 
 		// Set current time.
 		$time = current_time( 'mysql' );
@@ -172,7 +168,7 @@ class Link_Juice_Keeper_Public {
 			'date' => $time,
 			'ip' => $ip,
 			'url' => $url,
-			'ref' => is_null($ref) ? '' : $ref,
+			'ref' => $ref,
 			'ua' => $ua,
 			'status' => 1,
 		);
