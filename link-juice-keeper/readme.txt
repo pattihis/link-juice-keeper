@@ -3,9 +3,9 @@ Contributors: pattihis
 Tags: 404, not found, link, links, error, redirect, seo
 Donate link: https://profiles.wordpress.org/pattihis/
 Requires at least: 5.2
-Tested up to: 6.0
+Tested up to: 6.1
 Requires PHP: 7.2
-Stable tag: 2.0.2
+Stable tag: 2.0.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -72,6 +72,10 @@ Of course! "Link Juice Keeper" is compatible with any theme and plugin that foll
 2. Log table to monitor 404 errors
 
 == Changelog ==
+
+= 2.0.3 =
+* Compatibility with WordPress 6.1
+* Security Patch
 
 = 2.0.2 =
 * Compatibility with WordPress 6.0
