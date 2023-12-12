@@ -1,5 +1,4 @@
 <?php
-
 /**
  * The admin-specific functionality of the plugin.
  *
@@ -44,14 +43,13 @@ class Link_Juice_Keeper_Admin {
 	 * Initialize the class and set its properties.
 	 *
 	 * @since    2.0.0
-	 * @param      string    $plugin_name       The name of this plugin.
-	 * @param      string    $version    The version of this plugin.
+	 * @param      string $plugin_name       The name of this plugin.
+	 * @param      string $version    The version of this plugin.
 	 */
 	public function __construct( $plugin_name, $version ) {
 
 		$this->plugin_name = $plugin_name;
-		$this->version = $version;
-
+		$this->version     = $version;
 	}
 
 	/**
@@ -62,7 +60,6 @@ class Link_Juice_Keeper_Admin {
 	public function enqueue_styles() {
 
 		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/link-juice-keeper-admin.css', array(), $this->version, 'all' );
-
 	}
 
 	/**
@@ -73,7 +70,6 @@ class Link_Juice_Keeper_Admin {
 	public function enqueue_scripts() {
 
 		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/link-juice-keeper-admin.js', array( 'jquery' ), $this->version, false );
-
 	}
 
 	/**
@@ -81,21 +77,20 @@ class Link_Juice_Keeper_Admin {
 	 *
 	 * @since    2.0.0
 	 */
-	public function linkJuiceKeeper_admin_menu() {
-		
-		add_menu_page( 
+	public function link_juice_keeper_admin_menu() {
+
+		add_menu_page(
 			__( 'Link Juice Keeper', 'link-juice-keeper' ),
 			__( 'Link Juice Keeper', 'link-juice-keeper' ),
 			'manage_options',
 			$this->plugin_name,
-			[$this,'linkJuiceKeeper_admin_display'],
+			array( $this, 'link_juice_keeper_admin_display' ),
 			'dashicons-editor-unlink',
 			25
 		);
 
-		add_submenu_page( $this->plugin_name, __( 'Link Juice Keeper Settings', 'link-juice-keeper' ), __( 'Settings', 'link-juice-keeper' ), 'manage_options', $this->plugin_name, [$this,'linkJuiceKeeper_admin_display'], 0);
-		add_submenu_page( $this->plugin_name, __( '404 Logs', 'link-juice-keeper' ), __( '404 Logs', 'link-juice-keeper' ), 'manage_options', $this->plugin_name.'-404-logs', [$this,'linkJuiceKeeper_admin_display_logs'], 1);
-
+		add_submenu_page( $this->plugin_name, __( 'Link Juice Keeper Settings', 'link-juice-keeper' ), __( 'Settings', 'link-juice-keeper' ), 'manage_options', $this->plugin_name, array( $this, 'link_juice_keeper_admin_display' ), 0 );
+		add_submenu_page( $this->plugin_name, __( '404 Logs', 'link-juice-keeper' ), __( '404 Logs', 'link-juice-keeper' ), 'manage_options', $this->plugin_name . '-404-logs', array( $this, 'link_juice_keeper_admin_display_logs' ), 1 );
 	}
 
 	/**
@@ -103,18 +98,18 @@ class Link_Juice_Keeper_Admin {
 	 *
 	 * @since  2.0.0
 	 */
-	public function linkJuiceKeeper_admin_display() {
+	public function link_juice_keeper_admin_display() {
 		include_once 'partials/link-juice-keeper-admin-display.php';
-    }
+	}
 
 	/**
 	 * Render the logs page content
 	 *
 	 * @since  2.0.0
 	 */
-	public function linkJuiceKeeper_admin_display_logs() {
+	public function link_juice_keeper_admin_display_logs() {
 		include_once 'partials/link-juice-keeper-admin-display-logs.php';
-    }
+	}
 
 	/**
 	 * Return the allowed status codes
@@ -122,20 +117,19 @@ class Link_Juice_Keeper_Admin {
 	 * @since  2.0.0
 	 * @return array Allowed HTTP status codes
 	 */
-	public function linkJuiceKeeper_statuses() {
+	public function link_juice_keeper_statuses() {
 
 		$statuses = array(
 			301 => __( '301 Redirect (Permanent)', 'link-juice-keeper' ),
 			302 => __( '302 Redirect (Found)', 'link-juice-keeper' ),
 			307 => __( '307 Redirect (Temporary)', 'link-juice-keeper' ),
 		);
-	
+
 		return (array) apply_filters( 'ljk_statuses', $statuses );
 	}
 
 	/**
 	 * Get plugin settings value.
-	 *
 	 *
 	 * @param mixed $option Option name.
 	 * @param mixed $default Default value if not exist.
@@ -145,7 +139,7 @@ class Link_Juice_Keeper_Admin {
 	 *
 	 * @return string|array
 	 */
-	function linkJuiceKeeper_get_option( $option = false, $default = false ) {
+	public function link_juice_keeper_get_option( $option = false, $default = false ) {
 
 		if ( ! $option ) {
 			return $default;
@@ -180,33 +174,34 @@ class Link_Juice_Keeper_Admin {
 	 * Create dropdown HTML content of posts
 	 *
 	 * Supports all WP_Query arguments
+	 *
 	 * @see https://codex.wordpress.org/Class_Reference/WP_Query
 	 *
 	 * @since 2.0.0
 	 *
 	 * @param array|string $args Optional. Array or string of arguments to generate a drop-down of posts.
-	 * 
+	 *
 	 * @return string String of HTML content.
 	 */
-	function wp_dropdown_posts( $args = '' ) {
+	public function link_juice_keeper_dropdown_posts( $args = '' ) {
 
 		$defaults = array(
-			'selected'              => FALSE,
-			'pagination'            => FALSE,
-			'posts_per_page'        => - 1,
+			'selected'              => false,
+			'pagination'            => false,
+			'posts_per_page'        => -1,
 			'post_status'           => 'publish',
-			'cache_results'         => TRUE,
-			'cache_post_meta_cache' => TRUE,
+			'cache_results'         => true,
+			'cache_post_meta_cache' => true,
 			'echo'                  => 1,
 			'select_name'           => 'post_id',
 			'id'                    => '',
 			'class'                 => '',
 			'show'                  => 'post_title',
-			'show_callback'         => NULL,
-			'show_option_all'       => NULL,
-			'show_option_none'      => NULL,
+			'show_callback'         => null,
+			'show_option_all'       => null,
+			'show_option_none'      => null,
 			'option_none_value'     => '',
-			'multi'                 => FALSE,
+			'multi'                 => false,
 			'value_field'           => 'ID',
 			'order'                 => 'ASC',
 			'orderby'               => 'post_title',
@@ -219,11 +214,11 @@ class Link_Juice_Keeper_Admin {
 
 		$show = $r['show'];
 
-		if( ! empty($posts) ) {
+		if ( ! empty( $posts ) ) {
 
 			$name = esc_attr( $r['select_name'] );
 
-			if( $r['multi'] && ! $r['id'] ) {
+			if ( $r['multi'] && ! $r['id'] ) {
 				$id = '';
 			} else {
 				$id = $r['id'] ? " id='" . esc_attr( $r['id'] ) . "'" : " id='$name'";
@@ -231,28 +226,31 @@ class Link_Juice_Keeper_Admin {
 
 			$output = "<select name='{$name}'{$id} class='" . esc_attr( $r['class'] ) . "'>\n";
 
-			if( $r['show_option_all'] ) {
+			if ( $r['show_option_all'] ) {
 				$output .= "\t<option value='0'>{$r['show_option_all']}</option>\n";
 			}
 
-			if( $r['show_option_none'] ) {
-				$_selected = selected( $r['show_option_none'], $r['selected'], FALSE );
-				$output .= "\t<option value='" . esc_attr( $r['option_none_value'] ) . "'$_selected>{$r['show_option_none']}</option>\n";
+			if ( $r['show_option_none'] ) {
+				$_selected = selected( $r['show_option_none'], $r['selected'], false );
+				$output   .= "\t<option value='" . esc_attr( $r['option_none_value'] ) . "'$_selected>{$r['show_option_none']}</option>\n";
 			}
 
-			foreach( (array) $posts as $post ) {
+			foreach ( (array) $posts as $post ) {
 
-				$value   = ! isset($r['value_field']) || ! isset($post->{$r['value_field']}) ? $post->ID : $post->{$r['value_field']};
-				$_selected = selected( $value, $r['selected'], FALSE );
+				$value     = ! isset( $r['value_field'] ) || ! isset( $post->{$r['value_field']} ) ? $post->ID : $post->{$r['value_field']};
+				$_selected = selected( $value, $r['selected'], false );
 
-				$display = ! empty($post->$show) ? $post->$show : sprintf( __( '#%d (no title)' ), $post->ID );
+				// translators: %d: post ID.
+				$display = ! empty( $post->$show ) ? $post->$show : sprintf( __( '#%d (no title)' ), $post->ID );
 
-				if( $r['show_callback'] ) $display = call_user_func( $r['show_callback'], $display, $post->ID );
+				if ( $r['show_callback'] ) {
+					$display = call_user_func( $r['show_callback'], $display, $post->ID );
+				}
 
 				$output .= "\t<option value='{$value}'{$_selected}>" . esc_html( $display ) . "</option>\n";
 			}
 
-			$output .= "</select>";
+			$output .= '</select>';
 		}
 
 		/**
@@ -264,10 +262,10 @@ class Link_Juice_Keeper_Admin {
 		 * @param array  $r      The parsed arguments array.
 		 * @param array  $posts  List of WP_Post objects returned by `get_posts()`
 		 */
-		$html = apply_filters( 'wp_dropdown_posts', $output, $r, $posts );
+		$html = apply_filters( 'link_juice_keeper_dropdown_posts', $output, $r, $posts );
 
-		if( $r['echo'] ) {
-			echo $html;
+		if ( $r['echo'] ) {
+			echo $html; //phpcs:disable
 		}
 
 		return $html;
@@ -289,6 +287,4 @@ class Link_Juice_Keeper_Admin {
 
 		ob_start();
 	}
-
-
 }

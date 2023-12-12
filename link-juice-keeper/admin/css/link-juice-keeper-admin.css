@@ -4,15 +4,16 @@
     justify-content: space-between;
     max-width: 1080px;
 }
+
 .ljk_main_left {
-    background:#ffffff;
+    background: #ffffff;
     border-radius: 10px;
     padding: 0 2%;
     flex-basis: 59%;
 }
 
 .ljk_main_right {
-    background:#ffffff;
+    background: #ffffff;
     border-radius: 10px;
     padding: 20px 2%;
     flex-basis: 29%;
@@ -26,7 +27,9 @@
     .ljk_main_wrap {
         flex-direction: column;
     }
-    .ljk_main_left, .ljk_main_right {
+
+    .ljk_main_left,
+    .ljk_main_right {
         margin: 0 20px 30px 0;
         flex-basis: 100%;
     }

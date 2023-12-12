@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Define the internationalization functionality
  *
@@ -24,8 +23,7 @@
  * @subpackage Link_Juice_Keeper/includes
  * @author     George Pattihis <gpattihis@gmail.com>
  */
-class Link_Juice_Keeper_i18n {
-
+class Link_Juice_Keeper_I18n {
 
 	/**
 	 * Load the plugin text domain for translation.
@@ -39,9 +37,5 @@ class Link_Juice_Keeper_i18n {
 			false,
 			dirname( dirname( plugin_basename( __FILE__ ) ) ) . '/languages/'
 		);
-
 	}
-
-
-
 }

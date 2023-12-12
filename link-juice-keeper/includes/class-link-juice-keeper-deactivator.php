@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Fired during plugin deactivation
  *
@@ -30,7 +29,5 @@ class Link_Juice_Keeper_Deactivator {
 	 * @since    2.0.0
 	 */
 	public static function deactivate() {
-
 	}
-
 }

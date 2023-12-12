@@ -3,7 +3,7 @@ _A WordPress plugin to handle 404 errors with custom redirections_
 
 ## Description
 
-**Error 404** ( `Page not Found` ) is very common and one of the main reasons a search engine, like Google, can give you a lower ranking. Taking steps to handle 404 errors can be complex for non-techy users. With this free plugin you can finally eliminate all 404 errors with just 1 click, once and for all!
+**Error 404** ( `Page not Found` ) is very common and one of the main reasons Google can give you a lower ranking. Taking steps to handle 404 errors can be complex for non-techy users. With this free plugin you can finally eliminate all 404 errors with just 1 click, once and for all!
 
 **Link Juice Keeper** redirects all non-existing URLs, that normally return a 404 error, to the page/post of your choice. This way everyone who comes to your blog via a broken link (both people and robots) will be redirected to a valid page.
 

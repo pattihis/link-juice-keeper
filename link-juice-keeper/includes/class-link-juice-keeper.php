@@ -1,5 +1,4 @@
 <?php
-
 /**
  * The file that defines the core plugin class
  *
@@ -70,7 +69,7 @@ class Link_Juice_Keeper {
 		if ( defined( 'LINK_JUICE_KEEPER_VERSION' ) ) {
 			$this->version = LINK_JUICE_KEEPER_VERSION;
 		} else {
-			$this->version = '2.0.3';
+			$this->version = '2.0.4';
 		}
 		$this->plugin_name = 'link-juice-keeper';
 
@@ -78,7 +77,6 @@ class Link_Juice_Keeper {
 		$this->set_locale();
 		$this->define_admin_hooks();
 		$this->define_public_hooks();
-
 	}
 
 	/**
@@ -87,7 +85,7 @@ class Link_Juice_Keeper {
 	 * Include the following files that make up the plugin:
 	 *
 	 * - Link_Juice_Keeper_Loader. Orchestrates the hooks of the plugin.
-	 * - Link_Juice_Keeper_i18n. Defines internationalization functionality.
+	 * - Link_Juice_Keeper_I18n. Defines internationalization functionality.
 	 * - Link_Juice_Keeper_Admin. Defines all hooks for the admin area.
 	 * - Link_Juice_Keeper_Public. Defines all hooks for the public side of the site.
 	 *
@@ -128,13 +126,12 @@ class Link_Juice_Keeper {
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-link-juice-keeper-public.php';
 
 		$this->loader = new Link_Juice_Keeper_Loader();
-
 	}
 
 	/**
 	 * Define the locale for this plugin for internationalization.
 	 *
-	 * Uses the Link_Juice_Keeper_i18n class in order to set the domain and to register the hook
+	 * Uses the Link_Juice_Keeper_I18n class in order to set the domain and to register the hook
 	 * with WordPress.
 	 *
 	 * @since    2.0.0
@@ -142,10 +139,9 @@ class Link_Juice_Keeper {
 	 */
 	private function set_locale() {
 
-		$plugin_i18n = new Link_Juice_Keeper_i18n();
+		$plugin_i18n = new Link_Juice_Keeper_I18n();
 
 		$this->loader->add_action( 'plugins_loaded', $plugin_i18n, 'load_plugin_textdomain' );
-
 	}
 
 	/**
@@ -162,12 +158,10 @@ class Link_Juice_Keeper {
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
 
-		// admin setup
+		// admin setup.
 		$this->loader->add_filter( 'admin_init', $plugin_admin, 'add_buffer' );
 		$this->loader->add_action( 'admin_init', $plugin_admin, 'register_settings' );
-		$this->loader->add_action( 'admin_menu', $plugin_admin, 'linkJuiceKeeper_admin_menu' );
-
-
+		$this->loader->add_action( 'admin_menu', $plugin_admin, 'link_juice_keeper_admin_menu' );
 	}
 
 	/**
@@ -181,12 +175,8 @@ class Link_Juice_Keeper {
 
 		$plugin_public = new Link_Juice_Keeper_Public( $this->get_plugin_name(), $this->get_version() );
 
-		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
-		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
-
-		// init 404 actions
+		// init 404 actions.
 		$this->loader->add_action( 'template_redirect', $plugin_public, 'handle_404' );
-
 	}
 
 	/**
@@ -228,5 +218,4 @@ class Link_Juice_Keeper {
 	public function get_version() {
 		return $this->version;
 	}
-
 }

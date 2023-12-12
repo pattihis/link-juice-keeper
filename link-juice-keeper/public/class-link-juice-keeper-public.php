@@ -1,5 +1,4 @@
 <?php
-
 /**
  * The public-facing functionality of the plugin.
  *
@@ -44,36 +43,13 @@ class Link_Juice_Keeper_Public {
 	 * Initialize the class and set its properties.
 	 *
 	 * @since    2.0.0
-	 * @param      string    $plugin_name       The name of the plugin.
-	 * @param      string    $version    The version of this plugin.
+	 * @param      string $plugin_name       The name of the plugin.
+	 * @param      string $version    The version of this plugin.
 	 */
 	public function __construct( $plugin_name, $version ) {
 
 		$this->plugin_name = $plugin_name;
-		$this->version = $version;
-
-	}
-
-	/**
-	 * Register the stylesheets for the public-facing side of the site.
-	 *
-	 * @since    2.0.0
-	 */
-	public function enqueue_styles() {
-
-		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/link-juice-keeper-public.css', array(), $this->version, 'all' );
-
-	}
-
-	/**
-	 * Register the JavaScript for the public-facing side of the site.
-	 *
-	 * @since    2.0.0
-	 */
-	public function enqueue_scripts() {
-
-		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/link-juice-keeper-public.js', array( 'jquery' ), $this->version, false );
-
+		$this->version     = $version;
 	}
 
 	/**
@@ -93,44 +69,41 @@ class Link_Juice_Keeper_Public {
 			return;
 		}
 
-		$plugin_admin = new Link_Juice_Keeper_Admin('link-juice-keeper', LINK_JUICE_KEEPER_VERSION );
+		$plugin_admin = new Link_Juice_Keeper_Admin( 'link-juice-keeper', LINK_JUICE_KEEPER_VERSION );
 
-		// Get redirect target
-		$to = $plugin_admin->linkJuiceKeeper_get_option( 'redirect_to' );
+		// Get redirect target.
+		$to = $plugin_admin->link_juice_keeper_get_option( 'redirect_to' );
 		if ( 'home' === $to ) {
 			$target = get_home_url();
 		} elseif ( 'page' === $to ) {
-			$target = get_permalink( $plugin_admin->linkJuiceKeeper_get_option( 'redirect_page' ) );
+			$target = get_permalink( $plugin_admin->link_juice_keeper_get_option( 'redirect_page' ) );
 		} elseif ( 'post' === $to ) {
-			$target = get_permalink( $plugin_admin->linkJuiceKeeper_get_option( 'redirect_post' ) );
+			$target = get_permalink( $plugin_admin->link_juice_keeper_get_option( 'redirect_post' ) );
 		} elseif ( 'link' === $to ) {
-			$target = $plugin_admin->linkJuiceKeeper_get_option( 'redirect_link' );
+			$target = $plugin_admin->link_juice_keeper_get_option( 'redirect_link' );
 		}
 
-		if ( '0' == $to ) {
+		if ( '0' === $to || false === $to ) {
 			return;
 		} else {
 
-			// Get redirect type
+			// Get redirect type.
 			$options = get_option( 'ljk_main_settings' );
-			$type = $options['redirect_type'];
+			$type    = $options['redirect_type'];
 
-			// Get incident details
+			// Get incident details.
 			$this->get_data();
 
-			// Log error details to database
-			$this->log_error( (bool)$options['redirect_log'] );
+			// Log error details to database.
+			$log = array_key_exists( 'redirect_log', $options ) ? (bool) $options['redirect_log'] : false;
+			$this->log_error( $log );
 
-			// Send email notification
-			if (isset($options['email_notify'])) {
-				$this->email_alert( (bool)$options['email_notify'] );
-			}
+			// Send email notification.
+			$this->email_alert( (bool) $options['email_notify'] );
 
 			// Redirect the user.
 			$this->redirect( $type, $target );
-
 		}
-
 	}
 
 	/**
@@ -148,28 +121,28 @@ class Link_Juice_Keeper_Public {
 		$ips = array( 'HTTP_CLIENT_IP', 'HTTP_X_FORWARDED_FOR', 'REMOTE_ADDR' );
 		foreach ( $ips as $ip ) {
 			if ( isset( $_SERVER[ $ip ] ) ) {
-				$ip = esc_attr( $_SERVER[ $ip ] );
+				$ip = esc_attr($_SERVER[$ip]); //phpcs:ignore
 			}
 		}
 
 		// Set visitor's user agent/browser.
-		$ua = isset( $_SERVER['HTTP_USER_AGENT'] ) ? esc_attr( $_SERVER['HTTP_USER_AGENT'] ) : '';
+		$ua = isset($_SERVER['HTTP_USER_AGENT']) ? esc_attr($_SERVER['HTTP_USER_AGENT']) : ''; //phpcs:ignore
 
 		// Set visitor's referring link.
-		$ref = isset( $_SERVER['HTTP_REFERER'] ) ? esc_url( $_SERVER['HTTP_REFERER'] ) : '';
+		$ref = isset($_SERVER['HTTP_REFERER']) ? esc_url($_SERVER['HTTP_REFERER']) : ''; //phpcs:ignore
 
-		// Set visitor's referring link
-		$url = isset( $_SERVER['REQUEST_URI'] ) ? untrailingslashit( esc_url( $_SERVER['REQUEST_URI'] ) ) : '';
+		// Set visitor's referring link.
+		$url = isset($_SERVER['REQUEST_URI']) ? untrailingslashit(esc_url($_SERVER['REQUEST_URI'])) : ''; //phpcs:ignore
 
 		// Set current time.
 		$time = current_time( 'mysql' );
 
 		$ljk_track_data = array(
-			'date' => $time,
-			'ip' => $ip,
-			'url' => $url,
-			'ref' => $ref,
-			'ua' => $ua,
+			'date'   => $time,
+			'ip'     => $ip,
+			'url'    => $url,
+			'ref'    => $ref,
+			'ua'     => $ua,
 			'status' => 1,
 		);
 	}
@@ -177,9 +150,9 @@ class Link_Juice_Keeper_Public {
 	/**
 	 * Log details of error to the database.
 	 *
+	 * @param bool $enabled Whether to log or not.
 	 * @since  2.0.0
 	 * @access public
-	 *
 	 * @return void
 	 */
 	public function log_error( $enabled ) {
@@ -190,24 +163,23 @@ class Link_Juice_Keeper_Public {
 
 		global $wpdb;
 		global $ljk_track_data;
-		$save_data = [];
-		$table = $wpdb->prefix . 'link_juice_keeper';
+		$save_data = array();
+		$table     = $wpdb->prefix . 'link_juice_keeper';
 
 		if ( is_array( $ljk_track_data ) ) {
-			$save_data =  array_map( 'sanitize_text_field', $ljk_track_data );
+			$save_data = array_map( 'sanitize_text_field', $ljk_track_data );
 
-			// Insert data to database
-			$wpdb->insert( $table, $save_data );
-        }
-
+			// Insert data to database.
+			$wpdb->insert($table, $save_data); //phpcs:ignore
+		}
 	}
 
 	/**
 	 * Send email about the error.
 	 *
+	 * @param bool $enabled Whether to send or not.
 	 * @since  2.0.0
 	 * @access public
-	 *
 	 * @return void
 	 */
 	public function email_alert( $enabled ) {
@@ -218,15 +190,13 @@ class Link_Juice_Keeper_Public {
 
 		global $ljk_track_data;
 
-		// Recipient
-		$options = get_option( 'ljk_main_settings' );
-		$notify_to = ( !empty( $options['notify_to'] ) ) ? $options['notify_to'] : get_option( 'admin_email' );
-		// Headers
-		$headers = array('Content-Type: text/html; charset=UTF-8');
-		// Subject
+		// Recipient.
+		$options   = get_option( 'ljk_main_settings' );
+		$notify_to = ( ! empty( $options['notify_to'] ) ) ? $options['notify_to'] : get_option( 'admin_email' );
+		// Subject.
 		$subject = __( 'A 404 Not Found error at ', 'link-juice-keeper' ) . get_bloginfo( 'name' );
-		// Email Body
-		$body = '<p>' . __( 'Notice: One more 404 error has just happened on your website at ', 'link-juice-keeper' ) . get_home_url().'</p>';
+		// Email Body.
+		$body  = '<p>' . __( 'Notice: One more 404 error has just happened on your website at ', 'link-juice-keeper' ) . get_home_url() . '</p>';
 		$body .= '<p>' . __( 'If you have enabled 404 redirection then visitor was sent to your selected page and you can ignore this message', 'link-juice-keeper' ) . '</p>';
 		$body .= '<table>';
 		$body .= '<tr><th align="left">' . __( '404 Not Found', 'link-juice-keeper' ) . ': </th><td align="left">' . $ljk_track_data['url'] . '</td></tr>';
@@ -234,31 +204,28 @@ class Link_Juice_Keeper_Public {
 		$body .= '<tr><th align="left">' . __( 'Time', 'link-juice-keeper' ) . ': </th><td align="left">' . $ljk_track_data['date'] . '</td></tr>';
 		$body .= '<tr><th align="left">' . __( 'Referrer', 'link-juice-keeper' ) . ': </th><td align="left">' . $ljk_track_data['ref'] . '</td></tr>';
 		$body .= '</table>';
-		$body .= '<p>' . sprintf( __( 'Alert sent by the %sLink Juice Keeper%s plugin for WordPress.', 'link-juice-keeper' ), '<strong>', '</strong>' ) . '</p>';
+		$body .= '<p>' . esc_html__( 'Alert sent by the Link Juice Keeper plugin for WordPress.', 'link-juice-keeper' ) . '</p>';
 
-		//Send email enotifcation
-		wp_mail( $notify_to, $subject, $body, $headers );
+		// Send email notifcation.
+		wp_mail( $notify_to, $subject, $body, 'From: ' . get_bloginfo( 'name' ) . '<' . get_option( 'admin_email' ) . '>; Content-Type: text/html; charset=UTF-8' );
 	}
 
+
 	/**
-	 * Redirect 404 errors
+	 * Redirect 404 errors.
 	 *
+	 * @param int    $type   Type of redirect.
+	 * @param string $target Target of redirect.
 	 * @since  2.0.0
 	 * @return void
 	 */
-	public function redirect( $type, $target) {
+	public function redirect( $type, $target ) {
 
 		if ( empty( $target ) ) {
 			return;
 		} else {
-			// Perform redirect using WordPress function
-			wp_redirect( $target, $type );
-			// WordPress will not exit automatically
+			wp_redirect($target, $type); //phpcs:ignore
 			exit;
 		}
-
 	}
-
-
-
 }

@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Provide an admin area view for the plugin
  *
@@ -16,49 +15,37 @@ global $wpdb;
 
 $table = new Link_Juice_Keeper_Logs();
 
-?>
+echo '<h1><span class="dashicons dashicons-editor-unlink"></span>&nbsp;' . esc_html__( '404 Logs', 'link-juice-keeper' ) . '</h1>';
 
-<h1>404 Logs</h1>
-    <div class="wrap">
-        <h4><?php _e( 'All 404 errors recorded in the database', 'link-juice-keeper' ); ?></h4>
-        <div id="poststuff">
-            <div id="post-body" class="metabox-holder">
-                <div id="post-body-content">
-                    <div class="meta-box-sortables ui-sortable">
-                        <?php $table->prepare_items();
-                        /**
-                         * Action hook to add something above listing page.
-                         *
-                         * Use this action hook to add custom filters and search
-                         * boxes to the listing table top section.
-                         *
-                         * @param object $this Listing page class object.
-                         *
-                         * @since 2.0.0
-                         */
-                        do_action( 'ljk_log_list_above_form', $table );
-                        ?>
-                        <form method="get">
-                            <input type="hidden" name="page" value="link-juice-keeper-404-logs"/>
-                            <?php $table->display(); ?>
-                        </form>
-                        <?php
-                        /**
-                         * Action hook to add something below the listing page.
-                         *
-                         * Use this action hook to add custom filters and search
-                         * boxes to the listing table bottom section.
-                         *
-                         * @param object $this Listing page class object.
-                         *
-                         * @since 2.0.0
-                         */
-                        do_action( 'ljk_log_list_below_form', $table );
-                        ?>
-                    </div>
-                </div>
-            </div>
-            <br class="clear">
-        </div>
-    </div>
-<?php
+echo '<h4>' . esc_html__( 'All 404 errors recorded in the database', 'link-juice-keeper' ) . '</h4>';
+
+$table->prepare_items();
+
+/**
+ * Action hook to add something above listing page.
+ *
+ * Use this action hook to add custom filters and search
+ * boxes to the listing table top section.
+ *
+ * @param object $this Listing page class object.
+ *
+ * @since 2.0.0
+ */
+do_action( 'ljk_log_list_above_form', $table );
+
+echo '<form method="get">';
+echo '<input type="hidden" name="page" value="link-juice-keeper-404-logs" />';
+$table->display();
+echo '</form>';
+
+/**
+ * Action hook to add something below the listing page.
+ *
+ * Use this action hook to add custom filters and search
+ * boxes to the listing table bottom section.
+ *
+ * @param object $this Listing page class object.
+ *
+ * @since 2.0.0
+ */
+do_action( 'ljk_log_list_below_form', $table );

@@ -5,17 +5,20 @@
  * @link       https://profiles.wordpress.org/pattihis/
  * @since      2.0.0
  *
- *
  * @package    Link_Juice_Keeper
  * @subpackage Link_Juice_Keeper/logs
  * @author     George Pattihis <gpattihis@gmail.com>
  */
 
-// Load base class if it doesn't exist
-if (!class_exists('WP_List_Table')) {
-    require_once(ABSPATH . 'wp-admin/includes/class-wp-list-table.php');
+// Load base class if it doesn't exist.
+if ( ! class_exists( 'WP_List_Table' ) ) {
+	require_once ABSPATH . 'wp-admin/includes/class-wp-list-table.php';
 }
 
+
+/**
+ * The class responsible for displaying the logs in a WP table in the admin area.
+ */
 class Link_Juice_Keeper_Logs extends WP_List_Table {
 
 	/**
@@ -38,18 +41,18 @@ class Link_Juice_Keeper_Logs extends WP_List_Table {
 		parent::__construct(
 			array(
 				'singular' => __( '404 Error Log', 'link-juice-keeper' ),
-				'plural' => __( '404 Error Logs', 'link-juice-keeper' ),
-				'ajax' => false,
+				'plural'   => __( '404 Error Logs', 'link-juice-keeper' ),
+				'ajax'     => false,
 			)
 		);
 	}
 
 	/**
 	 * Prepare listing table using WP_List_Table class.
-     * 
+	 *
 	 * This function extends the listing table class and uses our data
 	 * to list in the table.Here we set pagination, columns, sorting etc.
-     * 
+	 *
 	 * $this->items - Push our custom log data to the listing table.
 	 * Registering filter - "ljk_logs_list_per_page".
 	 *
@@ -58,11 +61,11 @@ class Link_Juice_Keeper_Logs extends WP_List_Table {
 	 */
 	public function prepare_items() {
 
-		$this->_column_headers = array( 
-            $this->get_columns(),           // columns
-            array(),                        // hidden
-            $this->get_sortable_columns(),  // sortable
-       );
+		$this->_column_headers = array(
+			$this->get_columns(),
+			array(),
+			$this->get_sortable_columns(),
+		);
 		// Execute bulk actions.
 		$actions = $this->process_actions();
 
@@ -92,13 +95,13 @@ class Link_Juice_Keeper_Logs extends WP_List_Table {
 		$this->set_pagination_args(
 			array(
 				'total_items' => $total_items,
-				'per_page' => $per_page,
+				'per_page'    => $per_page,
 			)
 		);
 
 		// Set table data for the current page.
-        $data = $this->get_error_logs( $per_page, $page_number );
-        usort( $data, array( &$this, 'sort_data' ) );
+		$data = $this->get_error_logs( $per_page, $page_number );
+		usort( $data, array( &$this, 'sort_data' ) );
 		$this->items = $data;
 	}
 
@@ -121,7 +124,7 @@ class Link_Juice_Keeper_Logs extends WP_List_Table {
 	private function get_error_logs( $per_page = 20, $page_number = 1 ) {
 
 		global $wpdb;
-        $table = $wpdb->prefix . 'link_juice_keeper';
+		$table = $wpdb->prefix . 'link_juice_keeper';
 
 		// Current offset.
 		$offset = ( $page_number - 1 ) * $per_page;
@@ -138,7 +141,7 @@ class Link_Juice_Keeper_Logs extends WP_List_Table {
 		$order = $this->get_order();
 
 		// Get error logs.
-		$result = $wpdb->get_results( $wpdb->prepare( "SELECT *" . $count . " FROM " . $table . " WHERE status != 0  " . $groupby_query . " ORDER BY %s %s LIMIT %d OFFSET %d", array( $orderby, $order, $per_page, $offset ) ), 'ARRAY_A' );
+		$result = $wpdb->get_results( $wpdb->prepare( 'SELECT *' . $count . ' FROM ' . $table . ' WHERE status != 0  ' . $groupby_query . ' ORDER BY %s %s LIMIT %d OFFSET %d', array( $orderby, $order, $per_page, $offset ) ), 'ARRAY_A' ); //phpcs:ignore
 
 		/**
 		 * Filter to alter the error logs listing data result.
@@ -186,7 +189,7 @@ class Link_Juice_Keeper_Logs extends WP_List_Table {
 		$allowed_columns = array_intersect( $allowed_columns, array_keys( $this->linkJuiceKeeper_log_columns() ) );
 
 		// Check if given column is allowed.
-		if ( in_array( $orderby, $allowed_columns ) ) {
+		if ( in_array( $orderby, $allowed_columns, true ) ) {
 			return esc_sql( $orderby );
 		}
 
@@ -209,7 +212,7 @@ class Link_Juice_Keeper_Logs extends WP_List_Table {
 	private function get_order() {
 
 		// Get order column name from request.
-		$order = $this->linkJuiceKeeper_from_request( 'order', 'DESC' ) == 'asc' ? 'ASC' : 'DESC';
+		$order = $this->linkJuiceKeeper_from_request( 'order', 'DESC' ) === 'asc' ? 'ASC' : 'DESC';
 
 		/**
 		 * Filter to alter the log listing order param.
@@ -254,7 +257,7 @@ class Link_Juice_Keeper_Logs extends WP_List_Table {
 		$group_by = $this->linkJuiceKeeper_from_request( 'group_by_top', '' );
 
 		// Verify if the group by value is allowed.
-		if ( ! in_array( $group_by, $allowed_values ) ) {
+		if ( ! in_array( $group_by, $allowed_values, true ) ) {
 			return;
 		}
 
@@ -284,12 +287,12 @@ class Link_Juice_Keeper_Logs extends WP_List_Table {
 	private function total_logs() {
 
 		global $wpdb;
-        $table = $wpdb->prefix . 'link_juice_keeper';
+		$table = $wpdb->prefix . 'link_juice_keeper';
 
 		if ( empty( $this->group_by ) ) {
-			$total = $wpdb->get_var( "SELECT COUNT(id) FROM " . $table );
+			$total = $wpdb->get_var( 'SELECT COUNT(id) FROM ' . $table ); //phpcs:ignore
 		} else {
-			$total = $total = $wpdb->get_var( "SELECT COUNT(DISTINCT " . $this->group_by . ") FROM " . $table );
+			$total = $total = $wpdb->get_var( 'SELECT COUNT(DISTINCT ' . $this->group_by . ') FROM ' . $table ); //phpcs:ignore
 		}
 
 		/**
@@ -314,12 +317,12 @@ class Link_Juice_Keeper_Logs extends WP_List_Table {
 	public function get_columns() {
 
 		$columns = array(
-			'cb' => '<input type="checkbox" style="width: 5%;" />',
+			'cb'   => '<input type="checkbox" style="width: 5%;" />',
 			'date' => __( 'Date', 'link-juice-keeper' ),
-			'url' => __( '404 Path', 'link-juice-keeper' ),
-			'ref' => __( 'Referrer', 'link-juice-keeper' ),
-			'ip' => __( 'User IP', 'link-juice-keeper' ),
-			'ua' => __( 'User Agent', 'link-juice-keeper' )
+			'url'  => __( '404 Path', 'link-juice-keeper' ),
+			'ref'  => __( 'Referrer', 'link-juice-keeper' ),
+			'ip'   => __( 'User IP', 'link-juice-keeper' ),
+			'ua'   => __( 'User Agent', 'link-juice-keeper' ),
 		);
 
 		/**
@@ -349,9 +352,9 @@ class Link_Juice_Keeper_Logs extends WP_List_Table {
 
 		$columns = array(
 			'date' => array( 'date', true ),
-			'url' => array( 'url', false ),
-			'ref' => array( 'ref', false ),
-			'ip' => array( 'ip', false )
+			'url'  => array( 'url', false ),
+			'ref'  => array( 'ref', false ),
+			'ip'   => array( 'ip', false ),
 		);
 
 		/**
@@ -369,7 +372,6 @@ class Link_Juice_Keeper_Logs extends WP_List_Table {
 	 *
 	 * If there are no errors logged yet, show custom error message
 	 * instead of default one.
-	 * Registering filter - "ljk_log_list_no_items_message".
 	 *
 	 * @since  2.0.0
 	 * @access public
@@ -383,7 +385,7 @@ class Link_Juice_Keeper_Logs extends WP_List_Table {
 		 *
 		 * @since 2.0.0
 		 */
-		_e( apply_filters( 'ljk_log_list_no_items_message', __( 'It seems there are no 404 errors logged yet.', 'link-juice-keeper' ) ) );
+		esc_html_e( 'It seems there are no 404 errors logged yet.', 'link-juice-keeper' );
 	}
 
 	/**
@@ -393,8 +395,8 @@ class Link_Juice_Keeper_Logs extends WP_List_Table {
 	 * for switch, printing the whole array.
 	 * Registering filter - "ljk_log_list_column_default".
 	 *
-	 * @param array $item Column data
-	 * @param string $column_name Column name
+	 * @param array  $item Column data.
+	 * @param string $column_name Column name.
 	 *
 	 * @since  2.0.0
 	 * @access protected
@@ -415,12 +417,12 @@ class Link_Juice_Keeper_Logs extends WP_List_Table {
 		$columns = apply_filters( 'ljk_log_list_column_default', $columns );
 
 		// If current column is allowed.
-		if ( in_array( $column_name, $columns ) ) {
+		if ( in_array( $column_name, $columns, true ) ) {
 			return $item[ $column_name ];
 		}
 
 		// Show the whole array for troubleshooting purposes.
-		return print_r( $item, true );
+		return print_r( $item, true ); //phpcs:ignore
 	}
 
 	/**
@@ -429,14 +431,14 @@ class Link_Juice_Keeper_Logs extends WP_List_Table {
 	 * This function is used to add new checkbox for all entries in
 	 * the listing table. We use this checkbox to perform bulk actions.
 	 *
-	 * @param array $item Column data
+	 * @param array $item Column data.
 	 *
 	 * @since  2.1.0
 	 * @access public
 	 *
 	 * @return string
 	 */
-	function column_cb( $item ) {
+	protected function column_cb( $item ) {
 
 		return sprintf( '<input type="checkbox" name="bulk-delete[]" value="%s"/>', $item['id'] );
 	}
@@ -448,18 +450,18 @@ class Link_Juice_Keeper_Logs extends WP_List_Table {
 	 * We can change styles, texts etc. using this function.
 	 * Registering filter - "ljk_log_list_date_column".
 	 *
-	 * @param array $item Column data
+	 * @param array $item Column data.
 	 *
 	 * @since  2.0.0
 	 * @access public
 	 *
 	 * @return string
 	 */
-	function column_date( $item ) {
+	public function column_date( $item ) {
 
 		$delete_nonce = wp_create_nonce( 'bulk-' . $this->_args['plural'] );
 
-		$title = mysql2date( "j M Y, g:i a", $item['date'] );
+		$title = mysql2date( 'j M Y, g:i a', $item['date'] );
 
 		$confirm = __( 'Are you sure you want to delete this item?', 'link-juice-keeper' );
 
@@ -480,14 +482,14 @@ class Link_Juice_Keeper_Logs extends WP_List_Table {
 	 * We can change styles, texts etc. using this function.
 	 * Registering filter - "ljk_log_list_url_column".
 	 *
-	 * @param array $item Column data
+	 * @param array $item Column data.
 	 *
 	 * @since  2.0.0
 	 * @access public
 	 *
 	 * @return string URL column html content
 	 */
-	function column_url( $item ) {
+	public function column_url( $item ) {
 
 		// Get default text if empty value.
 		$url = $this->get_empty_content( $item['url'] );
@@ -512,14 +514,14 @@ class Link_Juice_Keeper_Logs extends WP_List_Table {
 	 * We can change styles, texts etc. using this function.
 	 * Registering filter - "ljk_log_list_ref_column".
 	 *
-	 * @param array $item Column data
+	 * @param array $item Column data.
 	 *
 	 * @since  2.0.0
 	 * @access public
 	 *
 	 * @return string Ref column html content.
 	 */
-	function column_ref( $item ) {
+	public function column_ref( $item ) {
 
 		// Get default text if empty value.
 		$ref = $this->get_empty_content( $item['ref'] );
@@ -542,14 +544,14 @@ class Link_Juice_Keeper_Logs extends WP_List_Table {
 	 * We can change styles, texts etc. using this function.
 	 * Registering filter - "ljk_log_list_ua_column".
 	 *
-	 * @param array $item Column data
+	 * @param array $item Column data.
 	 *
 	 * @since  2.0.0
 	 * @access public
 	 *
 	 * @return string User Agent column html content
 	 */
-	function column_ua( $item ) {
+	public function column_ua( $item ) {
 
 		// Sanitize text content.
 		$ua = sanitize_text_field( $item['ua'] );
@@ -569,14 +571,14 @@ class Link_Juice_Keeper_Logs extends WP_List_Table {
 	 * We can change styles, texts etc. using this function.
 	 * Registering filter - "ljk_log_list_ip_column".
 	 *
-	 * @param array $item Column data
+	 * @param array $item Column data.
 	 *
 	 * @since  2.0.0
 	 * @access public
 	 *
 	 * @return string IP column html content.
 	 */
-	function column_ip( $item ) {
+	public function column_ip( $item ) {
 
 		// Get default text if empty value.
 		$ip = $this->get_empty_content( $item['ip'] );
@@ -593,7 +595,7 @@ class Link_Juice_Keeper_Logs extends WP_List_Table {
 	}
 
 	/**
-     * Check if current column is grouped and add count number
+	 * Check if current column is grouped and add count number
 	 *
 	 * @param string $content Content to display.
 	 * @param string $column  Column name.
@@ -609,7 +611,7 @@ class Link_Juice_Keeper_Logs extends WP_List_Table {
 		$count_text = '';
 
 		if ( ! empty( $item['count'] ) && $item['count'] > 1 && $column === $this->group_by ) {
-			$count_text = " (<strong>" . $item['count'] . "</strong>)";
+			$count_text = ' (<strong>' . $item['count'] . '</strong>)';
 		}
 
 		return $content . $count_text;
@@ -654,7 +656,7 @@ class Link_Juice_Keeper_Logs extends WP_List_Table {
 
 		$actions = array(
 			'bulk_delete' => __( 'Delete Selected', 'link-juice-keeper' ),
-			'bulk_clean' => __( 'Delete All', 'link-juice-keeper' ),
+			'bulk_clean'  => __( 'Delete All', 'link-juice-keeper' ),
 		);
 
 		/**
@@ -680,7 +682,7 @@ class Link_Juice_Keeper_Logs extends WP_List_Table {
 	 */
 	public function extra_tablenav( $which ) {
 
-		if ( $this->has_items() && 'top' == $which ) {
+		if ( $this->has_items() && 'top' === $which ) {
 
 			// This filter is already documented above.
 			$allowed_values = apply_filters( 'ljk_log_list_groupby_allowed', array( 'url', 'ref', 'ip', 'ua' ) );
@@ -691,9 +693,9 @@ class Link_Juice_Keeper_Logs extends WP_List_Table {
 			// Add dropdown.
 			echo '<div class="alignleft actions bulkactions">';
 			echo '<select name="group_by_top" class="404_group_by">';
-			echo '<option value="">' . __( 'Group by', 'link-juice-keeper' ) . '</option>';
+			echo '<option value="">' . esc_html__( 'Group by', 'link-juice-keeper' ) . '</option>';
 			foreach ( $column_names as $column ) {
-				echo '<option value="' . $column . '" ' . selected( $column, $this->group_by ) . '>' . $available_columns[ $column ] . '</option>';
+				echo '<option value="' . esc_attr( $column ) . '" ' . selected( $column, $this->group_by ) . '>' . esc_attr( $available_columns[ $column ] ) . '</option>';
 			}
 			echo '</select>';
 			submit_button( __( 'Apply', 'link-juice-keeper' ), 'button', 'filter_action', false, array( 'id' => 'post-query' ) );
@@ -730,7 +732,7 @@ class Link_Juice_Keeper_Logs extends WP_List_Table {
 		$allowed_actions = array_keys( $this->get_bulk_actions() );
 
 		// Verify only allowed actions are passed.
-		if ( ! in_array( $action, $allowed_actions ) && 'delete' !== $action ) {
+		if ( ! in_array( $action, $allowed_actions, true ) && 'delete' !== $action ) {
 			return false;
 		}
 
@@ -740,13 +742,13 @@ class Link_Juice_Keeper_Logs extends WP_List_Table {
 		// Run custom bulk actions.
 		// Add other custom actions in switch..
 		switch ( $action ) {
-			// Normal selected deletes.
+				// Normal selected deletes.
 			case 'delete':
 			case 'bulk_delete':
 			case 'bulk_clean':
 				$this->delete_logs( $ids, $action );
 				break;
-			// Add custom actions here.
+				// Add custom actions here.
 		}
 
 		return true;
@@ -768,16 +770,16 @@ class Link_Juice_Keeper_Logs extends WP_List_Table {
 	private function safe_redirect( $action_performed = false ) {
 
 		// If sensitive data found, remove those and redirect.
-		if ( ! empty( $_GET['_wp_http_referer'] ) || ! empty( $_GET['_wpnonce'] ) ) {
+		if ( ! empty( $_GET['_wp_http_referer'] ) || ! empty( $_GET['_wpnonce'] ) ) { //phpcs:ignore
 			// Redirect to current page.
-			wp_redirect( remove_query_arg( array( '_wp_http_referer', '_wpnonce' ), wp_unslash( $_SERVER['REQUEST_URI'] ) ) );
+			wp_safe_redirect( remove_query_arg( array( '_wp_http_referer', '_wpnonce' ), wp_unslash( $_SERVER['REQUEST_URI'] ) ) ); //phpcs:ignore
 			exit();
 		}
 
 		// If bulk actions performed, redirect.
-		if ( $action_performed === true ) {
+		if ( true === $action_performed ) {
 			// Redirect to current page.
-			wp_redirect( remove_query_arg( array( 'action', 'action2' ), wp_unslash( $_SERVER['REQUEST_URI'] ) ) );
+			wp_safe_redirect( remove_query_arg( array( 'action', 'action2' ), wp_unslash( $_SERVER['REQUEST_URI'] ) ) ); //phpcs:ignore
 			exit();
 		}
 	}
@@ -789,7 +791,7 @@ class Link_Juice_Keeper_Logs extends WP_List_Table {
 	 * the user selection. We are using IF ELSE loop instead of
 	 * switch to easily handle conditions.
 	 *
-	 * @param mixed $ids ID(s) of the log(s).
+	 * @param mixed  $ids ID(s) of the log(s).
 	 * @param string $action Current bulk action.
 	 *
 	 * @since  2.0.0
@@ -800,127 +802,125 @@ class Link_Juice_Keeper_Logs extends WP_List_Table {
 	private function delete_logs( $ids, $action ) {
 
 		global $wpdb;
-        $table = $wpdb->prefix . 'link_juice_keeper';
+		$table = $wpdb->prefix . 'link_juice_keeper';
 
 		if ( is_numeric( $ids ) && 'delete' === $action ) {
 			// If a single log is being deleted.
-			$query = "DELETE FROM " . $table . " WHERE id = " . absint( $ids );
+			$query = 'DELETE FROM ' . $table . ' WHERE id = ' . absint( $ids );
 		} elseif ( is_array( $ids ) && 'bulk_delete' === $action ) {
 			// If multiple selected logs are being deleted.
-			$ids = implode( ',', array_map( 'absint', $ids ) );
-			$query = "DELETE FROM " . $table . " WHERE id IN($ids)";
+			$ids   = implode( ',', array_map( 'absint', $ids ) );
+			$query = 'DELETE FROM ' . $table . " WHERE id IN($ids)";
 		} elseif ( 'bulk_clean' === $action ) {
 			// If deleting all logs.
-			$query = "DELETE FROM " . $table;
+			$query = 'DELETE FROM ' . $table;
 		} else {
 			// Incase if invalid log ids.
 			return;
 		}
 
 		// Run query to delete logs.
-		$wpdb->query( $query );
+		$wpdb->query( $query ); //phpcs:ignore
 	}
 
 
-    /**
-     * Available columns in error logs table.
-     * Registering filter - "ljk_redirect_statuses".
-     *
-     * @since  2.0.0
-     * @access private
-     *
-     * @return array Allowed HTTP status codes.
-     */
-    public function linkJuiceKeeper_log_columns() {
+	/**
+	 * Available columns in error logs table.
+	 * Registering filter - "ljk_redirect_statuses".
+	 *
+	 * @since  2.0.0
+	 * @access private
+	 *
+	 * @return array Allowed HTTP status codes.
+	 */
+	public function linkJuiceKeeper_log_columns() {
 
-        $columns = array(
+		$columns = array(
 			'date' => __( 'Date', 'link-juice-keeper' ),
-			'url' => __( '404 Path', 'link-juice-keeper' ),
-			'ref' => __( 'Referrer', 'link-juice-keeper' ),
-			'ip' => __( 'User IP', 'link-juice-keeper' ),
-			'ua' => __( 'User Agent', 'link-juice-keeper' )
-        );
+			'url'  => __( '404 Path', 'link-juice-keeper' ),
+			'ref'  => __( 'Referrer', 'link-juice-keeper' ),
+			'ip'   => __( 'User IP', 'link-juice-keeper' ),
+			'ua'   => __( 'User Agent', 'link-juice-keeper' ),
+		);
 
-        /**
-         * Filter for available columns.
-         * Registering filter - "ljk_log_columns".
-         *
-         * @param array columns name and slug.
-         *
-         * @since 2.0.0
-         */
-        return (array) apply_filters( 'ljk_log_columns', $columns );
-    }
+		/**
+		 * Filter for available columns.
+		 * Registering filter - "ljk_log_columns".
+		 *
+		 * @param array columns name and slug.
+		 *
+		 * @since 2.0.0
+		 */
+		return (array) apply_filters( 'ljk_log_columns', $columns );
+	}
 
-    /**
-     * Retreive data from $_REQUEST and sanitize
-     *
-     * @param string $key Key to get from request.
-     * @param mixed $default Default value.
-     *
-     * @since  2.0.0
-     * @access public
-     *
-     * @return array|string
-     */
-    public function linkJuiceKeeper_from_request( $key = '', $default = '' ) {
+	/**
+	 * Retrieve data from $_REQUEST and sanitize
+	 *
+	 * @param string $key Key to get from request.
+	 * @param mixed  $default Default value.
+	 *
+	 * @since  2.0.0
+	 * @access public
+	 *
+	 * @return array|string
+	 */
+	public function linkJuiceKeeper_from_request( $key = '', $default = '' ) {
 
-        // Return default value if key is not given.
-        if ( empty( $key ) || ! is_string( $key ) ) {
-            return $default;
-        }
+		// Return default value if key is not given.
+		if ( empty( $key ) || ! is_string( $key ) ) {
+			return $default;
+		}
 
-        // Return default value if key not set.
-        if ( ! isset( $_REQUEST[ $key ] ) ) {
-            return $default;
-        }
+		//phpcs:disable
+		// Return default value if key not set.
+		if ( ! isset( $_REQUEST[ $key ] ) ) {
+			return $default;
+		}
 
-        // Trim output.
-        if ( is_string( $_REQUEST[ $key ] ) ) {
-            return sanitize_text_field( $_REQUEST[ $key ] );
-        } elseif ( is_array( $_REQUEST[ $key ] ) ) {
-			return array_map( 'sanitize_text_field', $_REQUEST[ $key ] );
-        }
+		// Trim output.
+		if ( is_string( $_REQUEST[ $key ] ) ) {
+			return sanitize_text_field( wp_unslash( $_REQUEST[ $key ] ) );
+		} elseif ( is_array( $_REQUEST[ $key ] ) ) {
+			return array_map( 'sanitize_text_field', wp_unslash( $_REQUEST[ $key ] ) );
+		}
+		//phpcs:enable
 
-        return $default;
-    }
+		return $default;
+	}
 
-    /**
-     * Allows you to sort the data by the variables set in the $_GET
-     * 
-     * @since  2.0.0
-     * @return Mixed
-     */
-    private function sort_data( $a, $b )
-    {
-        // Set defaults
-        $orderby = 'date';
-        $order = 'desc';
+	/**
+	 * Allows you to sort the data by the variables set in the $_GET
+	 *
+	 * @param  Mixed $a First item to compare.
+	 * @param  Mixed $b Second item to compare.
+	 *
+	 * @since  2.0.0
+	 * @return Mixed
+	 */
+	private function sort_data( $a, $b ) {
+		// Set defaults.
+		$orderby = 'date';
+		$order   = 'desc';
 
-        // If orderby is set, use this as the sort column
-        if(!empty($_GET['orderby']))
-        {
-            $orderby = sanitize_title($_GET['orderby']);
-        }
+		//phpcs:disable
+		// If orderby is set, use this as the sort column.
+		if ( ! empty( $_GET['orderby'] ) ) {
+			$orderby = sanitize_title( wp_unslash( $_GET['orderby'] ) );
+		}
 
-        // If order is set use this as the order
-        if(!empty($_GET['order']))
-        {
-            $order = sanitize_title($_GET['order']);
-        }
+		// If order is set use this as the order.
+		if ( ! empty( $_GET['order'] ) ) {
+			$order = sanitize_title( wp_unslash( $_GET['order'] ) );
+		}
+		//phpcs:enable
 
+		$result = strcmp( $a[ $orderby ], $b[ $orderby ] );
 
-        $result = strcmp( $a[$orderby], $b[$orderby] );
+		if ( 'asc' === $order ) {
+			return $result;
+		}
 
-        if($order === 'asc')
-        {
-            return $result;
-        }
-
-        return -$result;
-    }
-
-
-
-
+		return -$result;
+	}
 }

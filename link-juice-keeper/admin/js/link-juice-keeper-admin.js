@@ -1,23 +1,23 @@
-(function( $ ) {
+(function ($) {
 	'use strict';
-    window.addEventListener("load", function(event) {
+	window.addEventListener("load", function (event) {
 
-		if ( $('.ljk_main_wrap').length ) {
+		if ($('.ljk_main_wrap').length) {
 			toggleOptions();
-			$( '#ljk_redirect_to' ).change(function() {
+			$('#ljk_redirect_to').change(function () {
 				toggleOptions();
 			});
 		}
 
 
-    });
+	});
 
-	function toggleOptions () {
+	function toggleOptions() {
 		$('#custom_page').hide();
 		$('#custom_post').hide();
 		$('#custom_url').hide();
 		var set = $('#ljk_redirect_to').val();
-		switch(set) {
+		switch (set) {
 			case 'page':
 				$('#custom_page').show();
 				break;
@@ -30,4 +30,4 @@
 		}
 	}
 
-})( jQuery );
+})(jQuery);

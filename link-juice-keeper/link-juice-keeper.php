@@ -3,8 +3,8 @@
  * Link Juice Keeper
  *
  * @package           Link_Juice_Keeper
- * @author            George Pattihis
- * @copyright         2021 George Pattihis
+ * @author            George Pattichis
+ * @copyright         2021 George Pattichis
  * @license           GPL-2.0-or-later
  * @link              https://profiles.wordpress.org/pattihis/
  * @since             2.0.0
@@ -13,10 +13,11 @@
  * Plugin Name:       Link Juice Keeper
  * Plugin URI:        https://wordpress.org/plugins/link-juice-keeper/
  * Description:       Improve your SEO and keep your link juice by automatically redirecting all 404 errors to any page/post/url. User friendly options and log feature.
- * Version:           2.0.3
- * Requires at least: 5.2
+ * Version:           2.0.4
+ * Requires at least: 5.3.0
+ * Tested up to:      6.4.2
  * Requires PHP:      7.2
- * Author:            George Pattihis
+ * Author:            George Pattichis
  * Author URI:        https://profiles.wordpress.org/pattihis/
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
@@ -24,7 +25,8 @@
  * Domain Path:       /languages
  */
 
- /* Copyright 2009,2011  Daniel Frużyński (daniel@poradnik-webmastera.com)
+/*
+	Copyright 2009,2011  Daniel Frużyński (daniel@poradnik-webmastera.com)
 
 	This program is free software; you can redistribute it and/or modify
 	it under the terms of the GNU General Public License, version 2, as
@@ -40,7 +42,8 @@
 	Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-/*  Copyright 2021  George Pattihis (gpattihis@gmail.com)
+/*
+	Copyright 2021  George Pattichis (gpattihis@gmail.com)
 
 	"Link Juice Keeper" is free software: you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
@@ -64,25 +67,26 @@ if ( ! defined( 'WPINC' ) ) {
 /**
  * Current plugin version.
  */
-define( 'LINK_JUICE_KEEPER_VERSION', '2.0.3' );
+define( 'LINK_JUICE_KEEPER_VERSION', '2.0.4' );
 
 /**
  * The code that runs during plugin activation.
  * This action is documented in includes/class-link-juice-keeper-activator.php
+ *
+ * @param bool $network_wide Whether to activate network-wide.
  */
-function activate_link_juice_keeper($network_wide) {
+function activate_link_juice_keeper( $network_wide ) {
 	require_once plugin_dir_path( __FILE__ ) . 'includes/class-link-juice-keeper-activator.php';
 
 	if ( is_multisite() && $network_wide ) {
-		foreach (get_sites(['fields'=>'ids']) as $blog_id) {
-			switch_to_blog($blog_id);
+		foreach ( get_sites( array( 'fields' => 'ids' ) ) as $blog_id ) {
+			switch_to_blog( $blog_id );
 			Link_Juice_Keeper_Activator::activate();
 			restore_current_blog();
 		}
 	} else {
 		Link_Juice_Keeper_Activator::activate();
 	}
-
 }
 
 /**
@@ -116,6 +120,5 @@ function run_link_juice_keeper() {
 
 	$plugin = new Link_Juice_Keeper();
 	$plugin->run();
-
 }
 run_link_juice_keeper();

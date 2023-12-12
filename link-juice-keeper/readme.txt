@@ -2,10 +2,10 @@
 Contributors: pattihis
 Tags: 404, not found, link, links, error, redirect, seo
 Donate link: https://profiles.wordpress.org/pattihis/
-Requires at least: 5.2
-Tested up to: 6.1
+Requires at least: 5.3.0
+Tested up to: 6.4.2
 Requires PHP: 7.2
-Stable tag: 2.0.3
+Stable tag: 2.0.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -13,7 +13,7 @@ Improve your SEO and keep your link juice by automatically redirecting all 404 e
 
 == Description ==
 
-**Error 404** ( `Page not Found` ) is very common and one of the main reasons a search engine, like Google, can give you a lower ranking. Taking steps to handle 404 errors can be complex for non-techy users. With this free plugin you can finally eliminate all 404 errors with just 1 click, once and for all!
+**Error 404** ( `Page not Found` ) is very common and one of the main reasons Google can give you a lower ranking. Taking steps to handle 404 errors can be complex for non-techy users. With this free plugin you can finally eliminate all 404 errors with just 1 click, once and for all!
 
 ### What are 404 errors?
 
@@ -72,6 +72,12 @@ Of course! "Link Juice Keeper" is compatible with any theme and plugin that foll
 2. Log table to monitor 404 errors
 
 == Changelog ==
+
+= 2.0.4 =
+* Compatibility with WordPress 6.4
+* WP Coding Standards compliant
+* Remove redundant public facing assets
+* Fix bug with mail function
 
 = 2.0.3 =
 * Compatibility with WordPress 6.1

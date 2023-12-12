@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Fired during plugin activation
  *
@@ -23,23 +22,23 @@
 class Link_Juice_Keeper_Activator {
 
 	/**
-	 * 
+	 *
 	 * We register default options to WordPress if they do not exist.
 	 *
 	 * @since    2.0.0
 	 */
-	public static function activate() {		
+	public static function activate() {
 
 		// Default settings for our plugin.
 		$options = array(
-			'redirect_type'  => '301',
-			'redirect_link'  => home_url(),
-			'redirect_log'   => 1,
-			'redirect_to'    => 'link',
-			'redirect_page'  => '',
-			'redirect_post'  => '',
-			'notify'         => 0,
-			'notify_to'      => get_option( 'admin_email' )
+			'redirect_type' => '301',
+			'redirect_link' => home_url(),
+			'redirect_log'  => 1,
+			'redirect_to'   => 'link',
+			'redirect_page' => '',
+			'redirect_post' => '',
+			'notify'        => 0,
+			'notify_to'     => get_option( 'admin_email' ),
 		);
 
 		// Get existing options if exists.
@@ -58,11 +57,10 @@ class Link_Juice_Keeper_Activator {
 
 		// Manage error log table.
 		self::create_db();
-
 	}
 
 	/**
-	 * 
+	 *
 	 * Create or update database table for error logs
 	 *
 	 * @global object $wpdb WordPress database helper object.
@@ -76,12 +74,12 @@ class Link_Juice_Keeper_Activator {
 		$db = get_option( 'ljk_db_version' );
 
 		// If table is up to date, do nothing.
-		if ( defined( LINK_JUICE_KEEPER_VERSION ) && $db === LINK_JUICE_KEEPER_VERSION ) {
+		if ( defined( LINK_JUICE_KEEPER_VERSION ) && LINK_JUICE_KEEPER_VERSION === $db ) {
 			return;
 		}
 
 		global $wpdb;
-		
+
 		// Our custom table name.
 		$table = $wpdb->prefix . 'link_juice_keeper';
 
@@ -98,7 +96,7 @@ class Link_Juice_Keeper_Activator {
         );";
 
 		// Handle DB upgrades in proper WordPress way.
-		require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
+		require_once ABSPATH . 'wp-admin/includes/upgrade.php';
 
 		// Update or create table in database.
 		dbDelta( $query );
@@ -106,5 +104,4 @@ class Link_Juice_Keeper_Activator {
 		// Update the db version number.
 		update_option( 'ljk_db_version', LINK_JUICE_KEEPER_VERSION );
 	}
-
 }
