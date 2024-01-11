@@ -1,8 +1,6 @@
 <?php
-
 /**
  * Fired when the plugin is uninstalled.
- *
  *
  * @link       https://profiles.wordpress.org/pattihis/
  * @since      2.0.0
@@ -15,20 +13,24 @@ if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
 	exit;
 }
 
-// If we are on a multisite installation clean up all subsites
-if ( is_multisite() ) { 
+// If we are on a multisite installation clean up all subsites.
+if ( is_multisite() ) {
 
-	foreach (get_sites(['fields'=>'ids']) as $blog_id) {
-		switch_to_blog($blog_id);
-		linkJuiceKeeper_cleanup();
+	foreach ( get_sites( array( 'fields' => 'ids' ) ) as $blogid ) {
+		switch_to_blog( $blogid );
+		link_juice_keeper_cleanup();
 		restore_current_blog();
-	} 
-
+	}
 } else {
-	linkJuiceKeeper_cleanup();
+	link_juice_keeper_cleanup();
 }
 
-function linkJuiceKeeper_cleanup(){
+/**
+ * Delete all plugin options and custom table.
+ *
+ * @since 2.0.0
+ */
+function link_juice_keeper_cleanup() {
 
 	// Plugin options.
 	$options = array(
@@ -45,6 +47,7 @@ function linkJuiceKeeper_cleanup(){
 
 	global $wpdb;
 
+	// phpcs:disable -- This is a custom table.
 	// Drop our custom table.
-	$wpdb->query( "DROP TABLE IF EXISTS " . $wpdb->prefix . "link_juice_keeper" );
+	$wpdb->query( 'DROP TABLE IF EXISTS ' . $wpdb->prefix . 'link_juice_keeper' );
 }

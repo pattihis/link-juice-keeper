@@ -85,7 +85,7 @@ class Link_Juice_Keeper_Admin {
 			'manage_options',
 			$this->plugin_name,
 			array( $this, 'link_juice_keeper_admin_display' ),
-			'dashicons-editor-unlink',
+			'dashicons-admin-links',
 			25
 		);
 

@@ -66,6 +66,7 @@ class Link_Juice_Keeper_Logs extends WP_List_Table {
 			array(),
 			$this->get_sortable_columns(),
 		);
+
 		// Execute bulk actions.
 		$actions = $this->process_actions();
 
@@ -83,10 +84,10 @@ class Link_Juice_Keeper_Logs extends WP_List_Table {
 		 *
 		 * @since 2.0.0
 		 */
-		$per_page = apply_filters( 'ljk_logs_list_per_page', $this->get_items_per_page( 'logs_per_page', 40 ) );
+		$per_page = apply_filters( 'ljk_logs_list_per_page', $this->get_items_per_page( 'logs_per_page', 100 ) );
 
 		// Current page number.
-		$page_number = $this->get_pagenum();
+		$current_page = $this->get_pagenum();
 
 		// Total error logs.
 		$total_items = $this->total_logs();
@@ -96,24 +97,22 @@ class Link_Juice_Keeper_Logs extends WP_List_Table {
 			array(
 				'total_items' => $total_items,
 				'per_page'    => $per_page,
+				'total_pages' => ceil( $total_items / $per_page ),
 			)
 		);
 
-		// Set table data for the current page.
-		$data = $this->get_error_logs( $per_page, $page_number );
+		$data = $this->get_error_logs();
+
 		usort( $data, array( &$this, 'sort_data' ) );
+
+		$data = array_slice( $data, ( ( $current_page - 1 ) * $per_page ), $per_page );
+
 		$this->items = $data;
 	}
 
 	/**
-	 * Get error logs data.
-	 *
-	 * Get error logs data from our custom database table.
-	 * Apply all filtering, sorting and paginations.
+	 * Get all error logs data from our custom database table.
 	 * Registering filter - "ljk_logs_list_result".
-	 *
-	 * @param int $per_page Logs per page.
-	 * @param int $page_number Current page number.
 	 *
 	 * @global object $wpdb WP DB object
 	 * @since  2.0.0
@@ -121,27 +120,18 @@ class Link_Juice_Keeper_Logs extends WP_List_Table {
 	 *
 	 * @return array
 	 */
-	private function get_error_logs( $per_page = 20, $page_number = 1 ) {
+	private function get_error_logs() {
 
 		global $wpdb;
 		$table = $wpdb->prefix . 'link_juice_keeper';
 
-		// Current offset.
-		$offset = ( $page_number - 1 ) * $per_page;
-
 		// Sort by column.
 		$orderby = $this->get_order_by();
-
-		// Set group b query, if set.
-		$groupby_query = empty( $this->group_by ) ? '' : ' GROUP BY ' . $this->group_by;
-		// Get count of grouped items.
-		$count = empty( $this->group_by ) ? '' : ', COUNT(id) as count ';
 
 		// Sort order.
 		$order = $this->get_order();
 
-		// Get error logs.
-		$result = $wpdb->get_results( $wpdb->prepare( 'SELECT *' . $count . ' FROM ' . $table . ' WHERE status != 0  ' . $groupby_query . ' ORDER BY %s %s LIMIT %d OFFSET %d', array( $orderby, $order, $per_page, $offset ) ), 'ARRAY_A' ); //phpcs:ignore
+		$result = $wpdb->get_results($wpdb->prepare('SELECT * FROM ' . $table . ' WHERE status != 0  ORDER BY %s %s', array($orderby, $order)), 'ARRAY_A'); //phpcs:ignore
 
 		/**
 		 * Filter to alter the error logs listing data result.
@@ -174,7 +164,7 @@ class Link_Juice_Keeper_Logs extends WP_List_Table {
 		 *
 		 * @since 2.0.0
 		 */
-		$orderby = apply_filters( 'ljk_log_list_orderby', $this->linkJuiceKeeper_from_request( 'orderby', 'date' ) );
+		$orderby = apply_filters( 'ljk_log_list_orderby', $this->link_juice_keeper_from_request( 'orderby', 'date' ) );
 
 		/**
 		 * Filter to alter the allowed order by values.
@@ -212,7 +202,7 @@ class Link_Juice_Keeper_Logs extends WP_List_Table {
 	private function get_order() {
 
 		// Get order column name from request.
-		$order = $this->linkJuiceKeeper_from_request( 'order', 'DESC' ) === 'asc' ? 'ASC' : 'DESC';
+		$order = $this->link_juice_keeper_from_request( 'order', 'DESC' ) === 'asc' ? 'ASC' : 'DESC';
 
 		/**
 		 * Filter to alter the log listing order param.
@@ -254,7 +244,7 @@ class Link_Juice_Keeper_Logs extends WP_List_Table {
 		$allowed_values = array_intersect( $allowed_values, array_keys( $this->linkJuiceKeeper_log_columns() ) );
 
 		// Get group by value from request.
-		$group_by = $this->linkJuiceKeeper_from_request( 'group_by_top', '' );
+		$group_by = $this->link_juice_keeper_from_request( 'group_by_top', '' );
 
 		// Verify if the group by value is allowed.
 		if ( ! in_array( $group_by, $allowed_values, true ) ) {
@@ -290,9 +280,9 @@ class Link_Juice_Keeper_Logs extends WP_List_Table {
 		$table = $wpdb->prefix . 'link_juice_keeper';
 
 		if ( empty( $this->group_by ) ) {
-			$total = $wpdb->get_var( 'SELECT COUNT(id) FROM ' . $table ); //phpcs:ignore
+			$total = $wpdb->get_var('SELECT COUNT(id) FROM ' . $table); //phpcs:ignore
 		} else {
-			$total = $total = $wpdb->get_var( 'SELECT COUNT(DISTINCT ' . $this->group_by . ') FROM ' . $table ); //phpcs:ignore
+			$total = $total = $wpdb->get_var('SELECT COUNT(DISTINCT ' . $this->group_by . ') FROM ' . $table); //phpcs:ignore
 		}
 
 		/**
@@ -422,7 +412,7 @@ class Link_Juice_Keeper_Logs extends WP_List_Table {
 		}
 
 		// Show the whole array for troubleshooting purposes.
-		return print_r( $item, true ); //phpcs:ignore
+		return print_r($item, true); //phpcs:ignore
 	}
 
 	/**
@@ -737,7 +727,7 @@ class Link_Juice_Keeper_Logs extends WP_List_Table {
 		}
 
 		// IDs of log entires to process.
-		$ids = $this->linkJuiceKeeper_from_request( 'bulk-delete', true );
+		$ids = $this->link_juice_keeper_from_request( 'bulk-delete', true );
 
 		// Run custom bulk actions.
 		// Add other custom actions in switch..
@@ -770,16 +760,16 @@ class Link_Juice_Keeper_Logs extends WP_List_Table {
 	private function safe_redirect( $action_performed = false ) {
 
 		// If sensitive data found, remove those and redirect.
-		if ( ! empty( $_GET['_wp_http_referer'] ) || ! empty( $_GET['_wpnonce'] ) ) { //phpcs:ignore
+		if (!empty($_GET['_wp_http_referer']) || !empty($_GET['_wpnonce'])) { //phpcs:ignore
 			// Redirect to current page.
-			wp_safe_redirect( remove_query_arg( array( '_wp_http_referer', '_wpnonce' ), wp_unslash( $_SERVER['REQUEST_URI'] ) ) ); //phpcs:ignore
+			wp_safe_redirect(remove_query_arg(array('_wp_http_referer', '_wpnonce'), wp_unslash($_SERVER['REQUEST_URI']))); //phpcs:ignore
 			exit();
 		}
 
 		// If bulk actions performed, redirect.
 		if ( true === $action_performed ) {
 			// Redirect to current page.
-			wp_safe_redirect( remove_query_arg( array( 'action', 'action2' ), wp_unslash( $_SERVER['REQUEST_URI'] ) ) ); //phpcs:ignore
+			wp_safe_redirect(remove_query_arg(array('action', 'action2'), wp_unslash($_SERVER['REQUEST_URI']))); //phpcs:ignore
 			exit();
 		}
 	}
@@ -820,7 +810,7 @@ class Link_Juice_Keeper_Logs extends WP_List_Table {
 		}
 
 		// Run query to delete logs.
-		$wpdb->query( $query ); //phpcs:ignore
+		$wpdb->query($query); //phpcs:ignore
 	}
 
 
@@ -865,7 +855,7 @@ class Link_Juice_Keeper_Logs extends WP_List_Table {
 	 *
 	 * @return array|string
 	 */
-	public function linkJuiceKeeper_from_request( $key = '', $default = '' ) {
+	public function link_juice_keeper_from_request( $key = '', $default = '' ) {
 
 		// Return default value if key is not given.
 		if ( empty( $key ) || ! is_string( $key ) ) {
@@ -874,15 +864,15 @@ class Link_Juice_Keeper_Logs extends WP_List_Table {
 
 		//phpcs:disable
 		// Return default value if key not set.
-		if ( ! isset( $_REQUEST[ $key ] ) ) {
+		if (!isset($_REQUEST[$key])) {
 			return $default;
 		}
 
 		// Trim output.
-		if ( is_string( $_REQUEST[ $key ] ) ) {
-			return sanitize_text_field( wp_unslash( $_REQUEST[ $key ] ) );
-		} elseif ( is_array( $_REQUEST[ $key ] ) ) {
-			return array_map( 'sanitize_text_field', wp_unslash( $_REQUEST[ $key ] ) );
+		if (is_string($_REQUEST[$key])) {
+			return sanitize_text_field(wp_unslash($_REQUEST[$key]));
+		} elseif (is_array($_REQUEST[$key])) {
+			return array_map('sanitize_text_field', wp_unslash($_REQUEST[$key]));
 		}
 		//phpcs:enable
 
@@ -905,13 +895,13 @@ class Link_Juice_Keeper_Logs extends WP_List_Table {
 
 		//phpcs:disable
 		// If orderby is set, use this as the sort column.
-		if ( ! empty( $_GET['orderby'] ) ) {
-			$orderby = sanitize_title( wp_unslash( $_GET['orderby'] ) );
+		if (!empty($_GET['orderby'])) {
+			$orderby = sanitize_title(wp_unslash($_GET['orderby']));
 		}
 
 		// If order is set use this as the order.
-		if ( ! empty( $_GET['order'] ) ) {
-			$order = sanitize_title( wp_unslash( $_GET['order'] ) );
+		if (!empty($_GET['order'])) {
+			$order = sanitize_title(wp_unslash($_GET['order']));
 		}
 		//phpcs:enable
 

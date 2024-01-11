@@ -15,7 +15,7 @@ global $wpdb;
 
 $table = new Link_Juice_Keeper_Logs();
 
-echo '<h1><span class="dashicons dashicons-editor-unlink"></span>&nbsp;' . esc_html__( '404 Logs', 'link-juice-keeper' ) . '</h1>';
+echo '<h1><span class="dashicons dashicons-admin-links"></span>&nbsp;' . esc_html__( '404 Logs', 'link-juice-keeper' ) . '</h1>';
 
 echo '<h4>' . esc_html__( 'All 404 errors recorded in the database', 'link-juice-keeper' ) . '</h4>';
 

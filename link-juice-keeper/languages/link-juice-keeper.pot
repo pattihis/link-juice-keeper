@@ -1,0 +1,309 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Link Juice Keeper\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-11 07:36+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: \n"
+"Language: \n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Loco https://localise.biz/\n"
+"X-Loco-Version: 2.6.6; wp-6.4.2\n"
+"X-Domain: link-juice-keeper"
+
+#: admin/class-link-juice-keeper-admin.php:123
+msgid "301 Redirect (Permanent)"
+msgstr ""
+
+#: admin/class-link-juice-keeper-admin.php:124
+msgid "302 Redirect (Found)"
+msgstr ""
+
+#: admin/class-link-juice-keeper-admin.php:125
+msgid "307 Redirect (Temporary)"
+msgstr ""
+
+#: admin/class-link-juice-keeper-logs.php:43
+msgid "404 Error Log"
+msgstr ""
+
+#: admin/class-link-juice-keeper-logs.php:44
+msgid "404 Error Logs"
+msgstr ""
+
+#: admin/class-link-juice-keeper-admin.php:93
+#: admin/partials/link-juice-keeper-admin-display-logs.php:18
+msgid "404 Logs"
+msgstr ""
+
+#: public/class-link-juice-keeper-public.php:202
+msgid "404 Not Found"
+msgstr ""
+
+#: admin/class-link-juice-keeper-logs.php:312
+#: admin/class-link-juice-keeper-logs.php:830
+msgid "404 Path"
+msgstr ""
+
+#: public/class-link-juice-keeper-public.php:197
+msgid "A 404 Not Found error at "
+msgstr ""
+
+#: admin/partials/link-juice-keeper-admin-display.php:123
+msgid "about these redirect types"
+msgstr ""
+
+#: admin/partials/link-juice-keeper-admin-display-logs.php:20
+msgid "All 404 errors recorded in the database"
+msgstr ""
+
+#: admin/class-link-juice-keeper-logs.php:691
+msgid "Apply"
+msgstr ""
+
+#: admin/class-link-juice-keeper-logs.php:456
+msgid "Are you sure you want to delete this item?"
+msgstr ""
+
+#: admin/partials/link-juice-keeper-admin-display.php:50
+#: admin/partials/link-juice-keeper-admin-display.php:86
+#: admin/partials/link-juice-keeper-admin-display.php:130
+msgid "Custom URL"
+msgstr ""
+
+#: admin/class-link-juice-keeper-logs.php:311
+#: admin/class-link-juice-keeper-logs.php:829
+msgid "Date"
+msgstr ""
+
+#: admin/class-link-juice-keeper-logs.php:458
+msgid "Delete"
+msgstr ""
+
+#: admin/class-link-juice-keeper-logs.php:649
+msgid "Delete All"
+msgstr ""
+
+#: admin/class-link-juice-keeper-logs.php:648
+msgid "Delete Selected"
+msgstr ""
+
+#: admin/partials/link-juice-keeper-admin-display.php:99
+msgid "Enable notifications"
+msgstr ""
+
+#: admin/partials/link-juice-keeper-admin-display.php:48
+#: admin/partials/link-juice-keeper-admin-display.php:128
+msgid "Existing Page"
+msgstr ""
+
+#: admin/partials/link-juice-keeper-admin-display.php:49
+#: admin/partials/link-juice-keeper-admin-display.php:129
+msgid "Existing Post"
+msgstr ""
+
+#. Author of the plugin
+msgid "George Pattichis"
+msgstr ""
+
+#: admin/partials/link-juice-keeper-admin-display.php:102
+msgid "Get notified by email on every 404 error"
+msgstr ""
+
+#: admin/class-link-juice-keeper-logs.php:686
+msgid "Group by"
+msgstr ""
+
+#: admin/partials/link-juice-keeper-admin-display.php:47
+#: admin/partials/link-juice-keeper-admin-display.php:127
+msgid "Home Page"
+msgstr ""
+
+#. Author URI of the plugin
+msgid "https://profiles.wordpress.org/pattihis/"
+msgstr ""
+
+#. URI of the plugin
+msgid "https://wordpress.org/plugins/link-juice-keeper/"
+msgstr ""
+
+#: admin/partials/link-juice-keeper-admin-display.php:136
+msgid "If you find this free plugin useful then please"
+msgstr ""
+
+#: public/class-link-juice-keeper-public.php:200
+msgid ""
+"If you have enabled 404 redirection then visitor was sent to your selected "
+"page and you can ignore this message"
+msgstr ""
+
+#. Description of the plugin
+msgid ""
+"Improve your SEO and keep your link juice by automatically redirecting all "
+"404 errors to any page/post/url. User friendly options and log feature."
+msgstr ""
+
+#. Filter hook to change no items message.
+#. @since 2.0.0
+#: admin/class-link-juice-keeper-logs.php:378
+msgid "It seems there are no 404 errors logged yet."
+msgstr ""
+
+#: admin/partials/link-juice-keeper-admin-display.php:95
+msgid "Keep track of 404 errors"
+msgstr ""
+
+#: admin/partials/link-juice-keeper-admin-display.php:123
+msgid "Learn more"
+msgstr ""
+
+#. Name of the plugin
+#: admin/class-link-juice-keeper-admin.php:83
+#: admin/class-link-juice-keeper-admin.php:84
+#: admin/partials/link-juice-keeper-admin-display.php:21
+msgid "Link Juice Keeper"
+msgstr ""
+
+#: admin/class-link-juice-keeper-admin.php:92
+msgid "Link Juice Keeper Settings"
+msgstr ""
+
+#: admin/partials/link-juice-keeper-admin-display.php:93
+msgid "Log 404 Errors"
+msgstr ""
+
+#: admin/partials/link-juice-keeper-admin-display.php:51
+#: admin/partials/link-juice-keeper-admin-display.php:131
+msgid "No Redirect"
+msgstr ""
+
+#: public/class-link-juice-keeper-public.php:199
+msgid "Notice: One more 404 error has just happened on your website at "
+msgstr ""
+
+#: admin/partials/link-juice-keeper-admin-display.php:136
+msgid "rate the plugin"
+msgstr ""
+
+#: admin/partials/link-juice-keeper-admin-display.php:130
+msgid "Redirect 404 requests to any URL of your choice"
+msgstr ""
+
+#: admin/partials/link-juice-keeper-admin-display.php:89
+msgid "Redirect all 404 errors to the above."
+msgstr ""
+
+#: admin/partials/link-juice-keeper-admin-display.php:127
+msgid "Redirect any 404 not-found request to your homepage"
+msgstr ""
+
+#: admin/partials/link-juice-keeper-admin-display.php:44
+msgid "Redirect target"
+msgstr ""
+
+#: admin/partials/link-juice-keeper-admin-display.php:33
+msgid "Redirect type"
+msgstr ""
+
+#: admin/class-link-juice-keeper-logs.php:313
+#: admin/class-link-juice-keeper-logs.php:831
+#: public/class-link-juice-keeper-public.php:205
+msgid "Referrer"
+msgstr ""
+
+#: admin/partials/link-juice-keeper-admin-display.php:23
+msgid "Resolve 404 errors with automatic redirect"
+msgstr ""
+
+#: admin/partials/link-juice-keeper-admin-display.php:115
+msgid "Save options"
+msgstr ""
+
+#: admin/partials/link-juice-keeper-admin-display.php:56
+msgid "Select a Page"
+msgstr ""
+
+#: admin/partials/link-juice-keeper-admin-display.php:66
+msgid "Select a Page from this list to redirect all 404 errors to"
+msgstr ""
+
+#: admin/partials/link-juice-keeper-admin-display.php:71
+msgid "Select a Post"
+msgstr ""
+
+#: admin/partials/link-juice-keeper-admin-display.php:81
+msgid "Select a Post from this list to redirect all 404 errors to"
+msgstr ""
+
+#: admin/partials/link-juice-keeper-admin-display.php:125
+msgid "Select a redirect target"
+msgstr ""
+
+#: admin/partials/link-juice-keeper-admin-display.php:121
+msgid "Select a redirect type"
+msgstr ""
+
+#: admin/partials/link-juice-keeper-admin-display.php:128
+msgid "Select any of your existing WordPress Pages as a 404 page"
+msgstr ""
+
+#: admin/partials/link-juice-keeper-admin-display.php:129
+msgid "Select any of your existing WordPress Posts as a 404 page"
+msgstr ""
+
+#: admin/partials/link-juice-keeper-admin-display.php:106
+msgid "Send notifications to"
+msgstr ""
+
+#: admin/class-link-juice-keeper-admin.php:92
+msgid "Settings"
+msgstr ""
+
+#: admin/partials/link-juice-keeper-admin-display.php:123
+msgid ""
+"The 301 redirect is the best method in most cases and recommended for your "
+"SEO"
+msgstr ""
+
+#: admin/partials/link-juice-keeper-admin-display.php:110
+msgid "The recipient for email notifications."
+msgstr ""
+
+#: public/class-link-juice-keeper-public.php:204
+msgid "Time"
+msgstr ""
+
+#: admin/partials/link-juice-keeper-admin-display.php:136
+msgid "to support us. Thank you!"
+msgstr ""
+
+#: admin/partials/link-juice-keeper-admin-display.php:119
+msgid "Usage"
+msgstr ""
+
+#: admin/partials/link-juice-keeper-admin-display.php:131
+msgid "Use this option to disable redirects on 404 errors"
+msgstr ""
+
+#: admin/class-link-juice-keeper-logs.php:315
+#: admin/class-link-juice-keeper-logs.php:833
+msgid "User Agent"
+msgstr ""
+
+#: admin/class-link-juice-keeper-logs.php:314
+#: admin/class-link-juice-keeper-logs.php:832
+msgid "User IP"
+msgstr ""
+
+#: public/class-link-juice-keeper-public.php:203
+msgid "Visitor IP"
+msgstr ""
+
+#: public/class-link-juice-keeper-public.php:208
+msgid "You can Turn off these notifications in your admin dashboard."
+msgstr ""

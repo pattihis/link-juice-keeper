@@ -204,10 +204,11 @@ class Link_Juice_Keeper_Public {
 		$body .= '<tr><th align="left">' . __( 'Time', 'link-juice-keeper' ) . ': </th><td align="left">' . $ljk_track_data['date'] . '</td></tr>';
 		$body .= '<tr><th align="left">' . __( 'Referrer', 'link-juice-keeper' ) . ': </th><td align="left">' . $ljk_track_data['ref'] . '</td></tr>';
 		$body .= '</table>';
-		$body .= '<p>' . esc_html__( 'Alert sent by the Link Juice Keeper plugin for WordPress.', 'link-juice-keeper' ) . '</p>';
+		$body .= '<p>' . esc_html__( 'Alert sent by the Link Juice Keeper plugin for WordPress.' ) . '</p>';
+		$body .= '<p>' . esc_html__( 'You can Turn off these notifications in your admin dashboard.', 'link-juice-keeper' ) . '</p>';
 
 		// Send email notifcation.
-		wp_mail( $notify_to, $subject, $body, 'From: ' . get_bloginfo( 'name' ) . '<' . get_option( 'admin_email' ) . '>; Content-Type: text/html; charset=UTF-8' );
+		wp_mail( $notify_to, $subject, $body, 'Content-Type: text/html; charset=UTF-8' );
 	}
 
 

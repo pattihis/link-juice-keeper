@@ -23,7 +23,7 @@ _A WordPress plugin to handle 404 errors with custom redirections_
 * Browse code: https://plugins.trac.wordpress.org/browser/link-juice-keeper/
 * Revision Log: https://plugins.trac.wordpress.org/log/link-juice-keeper
 
-### == Installation ==
+### Installation
 
 1. In your WordPress admin panel, go to Plugins > New Plugin, search for "Link Juice Keeper" and click "Install now"
 2. Alternatively, download the plugin and upload the contents of link-juice-keeper.zip to your plugins directory, which usually is /wp-content/plugins/
