@@ -70,7 +70,7 @@ Of course! "Link Juice Keeper" is compatible with any theme and plugin that foll
 
 == Changelog ==
 
-= 2.1.2 =
+= 2.1.3 =
 * Ensure compatibility with WP 6.8
 * Reduced tags to the 5 most useful and relevant ones
 * Ensured full WordPress coding standards compliance (PHPCS)
