@@ -9,6 +9,10 @@
  * @subpackage Link_Juice_Keeper/admin
  */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly.
+}
+
 /**
  * The admin-specific functionality of the plugin.
  *
@@ -132,17 +136,17 @@ class Link_Juice_Keeper_Admin {
 	 * Get plugin settings value.
 	 *
 	 * @param mixed $option Option name.
-	 * @param mixed $default Default value if not exist.
+	 * @param mixed $def_value Default value if not exist.
 	 *
 	 * @since  2.0.0
 	 * @access public
 	 *
 	 * @return string|array
 	 */
-	public function link_juice_keeper_get_option( $option = false, $default = false ) {
+	public function link_juice_keeper_get_option( $option = false, $def_value = false ) {
 
 		if ( ! $option ) {
-			return $default;
+			return $def_value;
 		}
 
 		// Get our plugin settings value.
@@ -150,7 +154,7 @@ class Link_Juice_Keeper_Admin {
 
 		// Return false, if not exist.
 		if ( empty( $settings[ $option ] ) ) {
-			return $default;
+			return $def_value;
 		}
 
 		return $settings[ $option ];

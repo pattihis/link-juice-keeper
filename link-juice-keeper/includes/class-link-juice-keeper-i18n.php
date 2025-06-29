@@ -12,6 +12,10 @@
  * @subpackage Link_Juice_Keeper/includes
  */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly.
+}
+
 /**
  * Define the internationalization functionality.
  *

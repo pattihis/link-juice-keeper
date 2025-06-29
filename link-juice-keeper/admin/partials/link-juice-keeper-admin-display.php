@@ -11,6 +11,10 @@
  * @subpackage Link_Juice_Keeper/admin/partials
  */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly.
+}
+
 $plugin_admin = new Link_Juice_Keeper_Admin( 'link-juice-keeper', LINK_JUICE_KEEPER_VERSION );
 $statuses     = $plugin_admin->link_juice_keeper_statuses();
 

@@ -11,6 +11,10 @@
  * @subpackage Link_Juice_Keeper/admin/partials
  */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly.
+}
+
 global $wpdb;
 
 $table = new Link_Juice_Keeper_Logs();

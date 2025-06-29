@@ -13,9 +13,9 @@
  * Plugin Name:       Link Juice Keeper
  * Plugin URI:        https://wordpress.org/plugins/link-juice-keeper/
  * Description:       Improve your SEO and keep your link juice by automatically redirecting all 404 errors to any page/post/url. User friendly options and log feature.
- * Version:           2.1.2
+ * Version:           2.1.3
  * Requires at least: 5.3.0
- * Tested up to:      6.7.1
+ * Tested up to:      6.8
  * Requires PHP:      7.2
  * Author:            George Pattichis
  * Author URI:        https://profiles.wordpress.org/pattihis/
@@ -67,7 +67,7 @@ if ( ! defined( 'WPINC' ) ) {
 /**
  * Current plugin version.
  */
-define( 'LINK_JUICE_KEEPER_VERSION', '2.1.2' );
+define( 'LINK_JUICE_KEEPER_VERSION', '2.1.3' );
 
 /**
  * The code that runs during plugin activation.

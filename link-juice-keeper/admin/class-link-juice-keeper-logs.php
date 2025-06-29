@@ -10,6 +10,10 @@
  * @author     George Pattihis <gpattihis@gmail.com>
  */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly.
+}
+
 // Load base class if it doesn't exist.
 if ( ! class_exists( 'WP_List_Table' ) ) {
 	require_once ABSPATH . 'wp-admin/includes/class-wp-list-table.php';
@@ -848,24 +852,24 @@ class Link_Juice_Keeper_Logs extends WP_List_Table {
 	 * Retrieve data from $_REQUEST and sanitize
 	 *
 	 * @param string $key Key to get from request.
-	 * @param mixed  $default Default value.
+	 * @param mixed  $def_value Default value.
 	 *
 	 * @since  2.0.0
 	 * @access public
 	 *
 	 * @return array|string
 	 */
-	public function link_juice_keeper_from_request( $key = '', $default = '' ) {
+	public function link_juice_keeper_from_request( $key = '', $def_value = '' ) {
 
 		// Return default value if key is not given.
 		if ( empty( $key ) || ! is_string( $key ) ) {
-			return $default;
+			return $def_value;
 		}
 
 		//phpcs:disable
 		// Return default value if key not set.
 		if (!isset($_REQUEST[$key])) {
-			return $default;
+			return $def_value;
 		}
 
 		// Trim output.
@@ -876,7 +880,7 @@ class Link_Juice_Keeper_Logs extends WP_List_Table {
 		}
 		//phpcs:enable
 
-		return $default;
+		return $def_value;
 	}
 
 	/**

@@ -12,6 +12,10 @@
  * @subpackage Link_Juice_Keeper/includes
  */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly.
+}
+
 /**
  * The core plugin class.
  *
@@ -69,7 +73,7 @@ class Link_Juice_Keeper {
 		if ( defined( 'LINK_JUICE_KEEPER_VERSION' ) ) {
 			$this->version = LINK_JUICE_KEEPER_VERSION;
 		} else {
-			$this->version = '2.1.2';
+			$this->version = '2.1.3';
 		}
 		$this->plugin_name = 'link-juice-keeper';
 
@@ -101,29 +105,29 @@ class Link_Juice_Keeper {
 		 * The class responsible for orchestrating the actions and filters of the
 		 * core plugin.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-link-juice-keeper-loader.php';
+		require_once plugin_dir_path( __DIR__ ) . 'includes/class-link-juice-keeper-loader.php';
 
 		/**
 		 * The class responsible for defining internationalization functionality
 		 * of the plugin.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-link-juice-keeper-i18n.php';
+		require_once plugin_dir_path( __DIR__ ) . 'includes/class-link-juice-keeper-i18n.php';
 
 		/**
 		 * The class responsible for defining all actions that occur in the admin area.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-link-juice-keeper-admin.php';
+		require_once plugin_dir_path( __DIR__ ) . 'admin/class-link-juice-keeper-admin.php';
 
 		/**
 		 * The class responsible for displaying logs in a WP_List_Table format
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-link-juice-keeper-logs.php';
+		require_once plugin_dir_path( __DIR__ ) . 'admin/class-link-juice-keeper-logs.php';
 
 		/**
 		 * The class responsible for defining all actions that occur in the public-facing
 		 * side of the site.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-link-juice-keeper-public.php';
+		require_once plugin_dir_path( __DIR__ ) . 'public/class-link-juice-keeper-public.php';
 
 		$this->loader = new Link_Juice_Keeper_Loader();
 	}

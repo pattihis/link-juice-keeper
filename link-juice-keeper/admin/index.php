@@ -1,2 +1,4 @@
-<?php //phpcs:ignore
-// Silence is golden
+<?php
+/**
+ * Silence is golden.
+ */
